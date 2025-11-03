@@ -13,7 +13,7 @@ const MaxWidthContainer: React.FC<ContainerProps> = ({
 	className = "",
 }) => {
 	return (
-		<Comp className={cn("max-w-4xl mx-auto w-full px-4", className)}>
+		<Comp className={cn("max-w-6xl mx-auto w-full px-4 py-4", className)}>
 			{children}
 		</Comp>
 	);
