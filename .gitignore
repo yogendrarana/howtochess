@@ -1,0 +1,8 @@
+.env
+.vscode
+.tanstack
+
+out/
+dist/
+build/
+node_modules/
