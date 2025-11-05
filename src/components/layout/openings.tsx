@@ -14,7 +14,8 @@ const openings = [
 	{
 		name: "Sicilian Defense",
 		moves: "1.e4 c5",
-		description: "The most popular and best-scoring response to white's 1.e4",
+		description:
+			"The most popular and best-scoring response to white's 1.e4",
 		category: "Asymmetrical",
 	},
 	{

@@ -19,7 +19,8 @@ export function Footer() {
 							{siteData.name}
 						</span>
 						<p>
-							© {new Date().getFullYear()} {siteData.name}. All rights reserved.
+							© {new Date().getFullYear()} {siteData.name}. All
+							rights reserved.
 						</p>
 					</div>
 

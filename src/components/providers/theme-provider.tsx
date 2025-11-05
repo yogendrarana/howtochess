@@ -120,7 +120,9 @@ const Theme = ({
 			const fallback = colorSchemes.includes(defaultTheme)
 				? defaultTheme
 				: null;
-			const colorScheme = colorSchemes.includes(resolved) ? resolved : fallback;
+			const colorScheme = colorSchemes.includes(resolved)
+				? resolved
+				: fallback;
 			// @ts-expect-error - colorScheme
 			d.style.colorScheme = colorScheme;
 		}
