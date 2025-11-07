@@ -10,18 +10,11 @@ export default function GameInfo({ className }: { className?: string }) {
 				<TabsTrigger value="moves" className="rounded">
 					Move History
 				</TabsTrigger>
-				<TabsTrigger value="analysis" className="rounded">
-					Analysis
-				</TabsTrigger>
 			</TabsList>
 
 			<TabsContent value="moves" className="flex-1 flex flex-col min-h-0 mt-2">
 				<MoveHistory className="flex-1 min-h-0" />
-				<GameControls className="mt-2 shrink-0" />
-			</TabsContent>
-
-			<TabsContent value="analysis" className="flex-1 min-h-0 mt-2">
-				Analysis
+				<GameControls className="mt-4 shrink-0" />
 			</TabsContent>
 		</Tabs>
 	);
