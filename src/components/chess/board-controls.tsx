@@ -62,12 +62,14 @@ export function BoardControls() {
 						</select>
 					</div>
 					<button
+						type="button"
 						onClick={() => setIsBoardFlipped(!isBoardFlipped)}
 						className="px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors text-lg"
 					>
 						{isBoardFlipped ? "↑ White View" : "↓ Black View"}
 					</button>
 					<button
+						type="button"
 						onClick={resetGame}
 						className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-lg"
 					>
@@ -84,6 +86,7 @@ export function BoardControls() {
 						Navigate Moves:
 					</div>
 					<button
+						type="button"
 						onClick={() => goToMove(0)}
 						disabled={!canGoBackward}
 						className="px-4 py-2 bg-gray-500 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-gray-600 transition-colors text-lg"
@@ -91,6 +94,7 @@ export function BoardControls() {
 						↞ Start
 					</button>
 					<button
+						type="button"
 						onClick={goBackward}
 						disabled={!canGoBackward}
 						className="px-4 py-2 bg-gray-500 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-gray-600 transition-colors text-lg"
@@ -105,6 +109,7 @@ export function BoardControls() {
 					</div>
 
 					<button
+						type="button"
 						onClick={goForward}
 						disabled={!canGoForward}
 						className="px-4 py-2 bg-gray-500 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-gray-600 transition-colors text-lg"
@@ -112,6 +117,7 @@ export function BoardControls() {
 						Next →
 					</button>
 					<button
+						type="button"
 						onClick={() => goToMove(moveHistory.length - 1)}
 						disabled={!canGoForward}
 						className="px-4 py-2 bg-gray-500 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-gray-600 transition-colors text-lg"
@@ -126,6 +132,7 @@ export function BoardControls() {
 						Remove Moves:
 					</div>
 					<button
+						type="button"
 						onClick={removeLastMove}
 						disabled={!canRemoveMove}
 						className="px-4 py-2 bg-red-500 text-white rounded-lg disabled:bg-red-300 disabled:cursor-not-allowed hover:bg-red-600 transition-colors text-lg"
@@ -133,6 +140,7 @@ export function BoardControls() {
 						Undo Last Move
 					</button>
 					<button
+						type="button"
 						onClick={() => removeMultipleMoves(2)}
 						disabled={currentMoveIndex < 2}
 						className="px-4 py-2 bg-red-600 text-white rounded-lg disabled:bg-red-300 disabled:cursor-not-allowed hover:bg-red-700 transition-colors text-lg"
@@ -140,6 +148,7 @@ export function BoardControls() {
 						Undo 2 Moves
 					</button>
 					<button
+						type="button"
 						onClick={() => removeMultipleMoves(5)}
 						disabled={currentMoveIndex < 5}
 						className="px-4 py-2 bg-red-700 text-white rounded-lg disabled:bg-red-300 disabled:cursor-not-allowed hover:bg-red-800 transition-colors text-lg"

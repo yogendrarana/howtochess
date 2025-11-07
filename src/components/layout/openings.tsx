@@ -1,4 +1,4 @@
-import { ChevronRight, Target } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {

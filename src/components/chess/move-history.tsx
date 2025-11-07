@@ -1,92 +1,98 @@
 import { useChessStore } from "@/store/chess-store";
-import React from "react";
+import { cn } from "@/lib/utils";
 
-export function MoveHistory() {
+export function MoveHistory({ className }: { className?: string }) {
 	const { moveHistory, currentMoveIndex, goToMove } = useChessStore();
 
 	return (
-		<div className="bg-white border-2 rounded-lg p-4 shadow-sm flex-1">
-			<div className="text-lg font-semibold mb-3 text-center">
-				Move History
-			</div>
-			<div className="max-h-96 overflow-y-auto">
-				<table className="w-full">
-					<thead>
-						<tr className="border-b-2">
-							<th className="text-left py-2 px-3">#</th>
-							<th className="text-left py-2 px-3">White</th>
-							<th className="text-left py-2 px-3">Black</th>
-						</tr>
-					</thead>
-					<tbody>
-						{Array.from({
-							length: Math.ceil((moveHistory.length - 1) / 2),
-						}).map((_, index) => {
-							const whiteMove = moveHistory[index * 2 + 1];
-							const blackMove = moveHistory[index * 2 + 2];
+		<div className={cn("border rounded flex-1 flex flex-col", className)}>
+			<table className="w-full text-sm border rounded-b-2xl">
+				<thead className="sticky top-0 bg-muted/50 backdrop-blur-sm">
+					<tr className="border-b">
+						<th className="text-left py-2 px-3 font-medium text-muted-foreground">
+							#
+						</th>
+						<th className="text-left py-2 px-3 font-medium text-muted-foreground">
+							White
+						</th>
+						<th className="text-left py-2 px-3 font-medium text-muted-foreground">
+							Black
+						</th>
+					</tr>
+				</thead>
 
-							return (
-								<tr
-									key={index}
-									className={`border-b hover:bg-gray-50 cursor-pointer ${
-										currentMoveIndex >= index * 2 + 1 &&
-										currentMoveIndex <=
-											(blackMove
-												? index * 2 + 2
-												: index * 2 + 1)
-											? "bg-blue-50"
-											: ""
-									}`}
-									onClick={() =>
-										goToMove(
-											blackMove
-												? index * 2 + 2
-												: index * 2 + 1,
-										)
-									}
-								>
-									<td className="py-2 px-3 font-mono font-semibold">
-										{index + 1}.
-									</td>
-									<td className="py-2 px-3">
-										{whiteMove && (
-											<span
-												className={
-													whiteMove.captured
-														? "text-red-600 font-semibold"
-														: ""
-												}
-											>
-												{whiteMove.san}
-												{whiteMove.captured && " †"}
-											</span>
-										)}
-									</td>
-									<td className="py-2 px-3">
-										{blackMove && (
-											<span
-												className={
-													blackMove.captured
-														? "text-red-600 font-semibold"
-														: ""
-												}
-											>
-												{blackMove.san}
-												{blackMove.captured && " †"}
-											</span>
-										)}
-									</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-				{moveHistory.length === 1 && (
-					<div className="text-center text-gray-500 py-4">
-						No moves yet
-					</div>
-				)}
-			</div>
+				<tbody>
+					{Array.from({
+						length: Math.ceil((moveHistory.length - 1) / 2),
+					}).map((_, index) => {
+						const whiteMove = moveHistory[index * 2 + 1];
+						const blackMove = moveHistory[index * 2 + 2];
+
+						const isActive =
+							currentMoveIndex >= index * 2 + 1 &&
+							currentMoveIndex <=
+								(blackMove ? index * 2 + 2 : index * 2 + 1);
+
+						return (
+							<tr
+								key={`${whiteMove?.fen ?? "start"}-${blackMove?.fen ?? ""}`}
+								onClick={() =>
+									goToMove(
+										blackMove
+											? index * 2 + 2
+											: index * 2 + 1,
+									)
+								}
+								className={cn(
+									"border-b cursor-pointer transition-colors",
+									isActive
+										? "bg-accent text-accent-foreground"
+										: "hover:bg-muted/50",
+								)}
+							>
+								<td className="py-2 px-3 font-mono font-semibold">
+									{index + 1}.
+								</td>
+
+								<td className="py-2 px-3">
+									{whiteMove && (
+										<span
+											className={cn(
+												whiteMove.captured &&
+													"text-destructive font-semibold",
+											)}
+										>
+											{whiteMove.san}
+											{whiteMove.captured && " †"}
+										</span>
+									)}
+								</td>
+
+								<td className="py-2 px-3">
+									{blackMove && (
+										<span
+											className={cn(
+												blackMove.captured &&
+													"text-destructive font-semibold",
+											)}
+										>
+											{blackMove.san}
+											{blackMove.captured && " †"}
+										</span>
+									)}
+								</td>
+							</tr>
+						);
+					})}
+				</tbody>
+			</table>
+
+			{/* Empty State */}
+			{moveHistory.length === 1 && (
+				<div className="h-full py-8 text-muted-foreground text-sm flex justify-center items-center">
+					No moves yet
+				</div>
+			)}
 		</div>
 	);
 }

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Chess } from "chess.js";
+import { Chess, type Move, type Square } from "chess.js";
 
 import type {
 	PlayerColor,
@@ -35,6 +35,8 @@ interface ChessState {
 	goToMove: (index: number) => void;
 	removeLastMove: () => void;
 	removeMultipleMoves: (count: number) => void;
+	goBackward: () => void;
+	goForward: () => void;
 	resetGame: () => void;
 	updateCapturedPieces: () => void;
 	getGameStatus: () => string;
@@ -68,10 +70,9 @@ export const useChessStore = create<ChessState>((set, get) => ({
 		const state = get();
 		try {
 			const copy = new Chess(state.game.fen());
-			const piece = copy.get(from);
 
 			// Check if move is a capture
-			const targetPiece = copy.get(to);
+			const targetPiece = copy.get(to as Square);
 			let capturedPiece: string | undefined;
 
 			if (targetPiece) {
@@ -90,7 +91,11 @@ export const useChessStore = create<ChessState>((set, get) => ({
 						: pieceSymbols[targetPiece.type];
 			}
 
-			const move = copy.move({ from, to, promotion });
+			const move = copy.move({
+				from: from as Square,
+				to: to as Square,
+				promotion,
+			});
 
 			if (move) {
 				const newHistory = state.moveHistory.slice(
@@ -100,7 +105,7 @@ export const useChessStore = create<ChessState>((set, get) => ({
 				newHistory.push({
 					fen: copy.fen(),
 					move: `${from}-${to}`,
-					san: move.san,
+					san: (move as Move).san,
 					captured: capturedPiece,
 				});
 
@@ -191,6 +196,20 @@ export const useChessStore = create<ChessState>((set, get) => ({
 			}
 
 			get().updateCapturedPieces();
+		}
+	},
+
+	goBackward: () => {
+		const { currentMoveIndex, goToMove } = get();
+		if (currentMoveIndex > 0) {
+			goToMove(currentMoveIndex - 1);
+		}
+	},
+
+	goForward: () => {
+		const { currentMoveIndex, moveHistory, goToMove } = get();
+		if (currentMoveIndex < moveHistory.length - 1) {
+			goToMove(currentMoveIndex + 1);
 		}
 	},
 

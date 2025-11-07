@@ -1,15 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { ChessBoard } from "@/components/chess/chess-board";
-
+import { Playground } from "@/components/chess/playground";
 export const Route = createFileRoute("/playground/")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
 	return (
-		<div>
-			<ChessBoard />
+		<div className="h-screen">
+			<Playground />
 		</div>
 	);
 }
