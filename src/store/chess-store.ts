@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { Chess, type Move, type Square } from "chess.js";
 
 import type {
@@ -7,17 +8,20 @@ import type {
 	CapturedPieces,
 } from "@/constants/chess";
 
-interface ChessState {
-	// game state
-	game: Chess;
-	selectedSquare: string | null;
-	validMoves: string[];
-	lastMove: { from: string; to: string } | null;
+interface PersistedChessState {
 	moveHistory: MoveHistory[];
 	currentMoveIndex: number;
 	isBoardFlipped: boolean;
 	playerColor: PlayerColor;
 	capturedPieces: CapturedPieces;
+}
+
+interface ChessState extends PersistedChessState {
+	// game state
+	game: Chess;
+	selectedSquare: string | null;
+	validMoves: string[];
+	lastMove: { from: string; to: string } | null;
 
 	// actions
 	setGame: (game: Chess) => void;
@@ -42,17 +46,28 @@ interface ChessState {
 	getGameStatus: () => string;
 }
 
-export const useChessStore = create<ChessState>((set, get) => ({
-	// Initial state
-	game: new Chess(),
-	selectedSquare: null,
-	validMoves: [],
-	lastMove: null,
-	moveHistory: [{ fen: new Chess().fen(), move: "", san: "Start" }],
-	currentMoveIndex: 0,
-	isBoardFlipped: false,
-	playerColor: "both",
-	capturedPieces: { w: [], b: [] },
+const getInitialState = () => {
+	const defaultFen = new Chess().fen();
+	return {
+		game: new Chess(),
+		selectedSquare: null,
+		validMoves: [],
+		lastMove: null,
+		moveHistory: [{ fen: defaultFen, move: "", san: "Start" }],
+		currentMoveIndex: 0,
+		isBoardFlipped: false,
+		playerColor: "both" as PlayerColor,
+		capturedPieces: { w: [], b: [] } as CapturedPieces,
+	};
+};
+
+export const useChessStore = create<ChessState>()(
+	persist(
+		(set, get) => {
+			const initialState = getInitialState();
+
+			return {
+				...initialState,
 
 	// Basic setters
 	setGame: (game) => set({ game }),
@@ -66,48 +81,51 @@ export const useChessStore = create<ChessState>((set, get) => ({
 	setCapturedPieces: (pieces) => set({ capturedPieces: pieces }),
 
 	// Complex actions
-	makeMove: (from, to, promotion = "q") => {
-		const state = get();
-		try {
-			const copy = new Chess(state.game.fen());
+		makeMove: (from, to, promotion = "q") => {
+			const state = get();
+			try {
+				const copy = new Chess(state.game.fen());
 
-			// Check if move is a capture
-			const targetPiece = copy.get(to as Square);
-			let capturedPiece: string | undefined;
+				// Check if move is a capture BEFORE making the move
+				const targetPiece = copy.get(to as Square);
+				let capturedPiece: string | undefined;
 
-			if (targetPiece) {
-				capturedPiece = targetPiece.type;
-				const pieceSymbols: { [key: string]: string } = {
-					p: "p",
-					n: "n",
-					b: "b",
-					r: "r",
-					q: "q",
-					k: "k",
-				};
-				capturedPiece =
-					targetPiece.color === "w"
-						? pieceSymbols[targetPiece.type].toUpperCase()
-						: pieceSymbols[targetPiece.type];
-			}
+				if (targetPiece) {
+					// Store the captured piece with the correct case:
+					// lowercase for black pieces, uppercase for white pieces
+					const pieceSymbols: { [key: string]: string } = {
+						p: "p",
+						n: "n",
+						b: "b",
+						r: "r",
+						q: "q",
+						k: "k",
+					};
+					// If targetPiece is white, store as uppercase (P, N, B, R, Q, K)
+					// If targetPiece is black, store as lowercase (p, n, b, r, q, k)
+					capturedPiece =
+						targetPiece.color === "w"
+							? pieceSymbols[targetPiece.type].toUpperCase()
+							: pieceSymbols[targetPiece.type];
+				}
 
-			const move = copy.move({
-				from: from as Square,
-				to: to as Square,
-				promotion,
-			});
-
-			if (move) {
-				const newHistory = state.moveHistory.slice(
-					0,
-					state.currentMoveIndex + 1,
-				);
-				newHistory.push({
-					fen: copy.fen(),
-					move: `${from}-${to}`,
-					san: (move as Move).san,
-					captured: capturedPiece,
+				const move = copy.move({
+					from: from as Square,
+					to: to as Square,
+					promotion,
 				});
+
+				if (move) {
+					const newHistory = state.moveHistory.slice(
+						0,
+						state.currentMoveIndex + 1,
+					);
+					newHistory.push({
+						fen: copy.fen(),
+						move: `${from}-${to}`,
+						san: (move as Move).san,
+						captured: capturedPiece,
+					});
 
 				set({
 					game: copy,
@@ -265,11 +283,13 @@ export const useChessStore = create<ChessState>((set, get) => ({
 
 		state.moveHistory.forEach((history) => {
 			if (history.captured) {
-				const color =
+				// If captured piece is lowercase (black piece), white captured it
+				// If captured piece is uppercase (white piece), black captured it
+				const capturingColor =
 					history.captured === history.captured.toLowerCase()
-						? "b"
-						: "w";
-				captured[color].push(history.captured);
+						? "w"
+						: "b";
+				captured[capturingColor].push(history.captured);
 			}
 		});
 
@@ -292,4 +312,54 @@ export const useChessStore = create<ChessState>((set, get) => ({
 			return `Check! ${game.turn() === "w" ? "White" : "Black"} to move.`;
 		return `${game.turn() === "w" ? "White" : "Black"} to move`;
 	},
-}));
+			};
+		},
+		{
+			name: "chess-storage",
+			storage: createJSONStorage(() => localStorage),
+			partialize: (state) => ({
+				moveHistory: state.moveHistory,
+				currentMoveIndex: state.currentMoveIndex,
+				isBoardFlipped: state.isBoardFlipped,
+				playerColor: state.playerColor,
+				capturedPieces: state.capturedPieces,
+			}),
+			onRehydrateStorage: () => (state) => {
+				if (state?.moveHistory && state.moveHistory.length > 0) {
+					// Reconstruct Chess object from persisted FEN
+					const currentFen =
+						state.moveHistory[state.currentMoveIndex]?.fen;
+					if (currentFen) {
+						try {
+							state.game = new Chess(currentFen);
+							// Reconstruct lastMove from current history entry
+							if (state.currentMoveIndex > 0) {
+								const currentEntry = state.moveHistory[state.currentMoveIndex];
+								const [from, to] = currentEntry.move.split("-");
+								if (from && to) {
+									state.lastMove = { from, to };
+								} else {
+									state.lastMove = null;
+								}
+							} else {
+								state.lastMove = null;
+							}
+							// Reset UI state
+							state.selectedSquare = null;
+							state.validMoves = [];
+						} catch (error) {
+							console.error("Failed to restore game from localStorage:", error);
+							// Reset to default state if restoration fails
+							const defaultState = getInitialState();
+							Object.assign(state, defaultState);
+						}
+					} else {
+						// If no valid FEN, reset to default state
+						const defaultState = getInitialState();
+						Object.assign(state, defaultState);
+					}
+				}
+			},
+		},
+	),
+);

@@ -2,18 +2,18 @@ export const RANKS = [8, 7, 6, 5, 4, 3, 2, 1] as const;
 export const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"] as const;
 
 export const PIECE_SYMBOLS: Record<string, string> = {
-	p: "♙",
-	n: "♘",
-	b: "♗",
-	r: "♖",
-	q: "♕",
-	k: "♔",
-	P: "♟",
-	N: "♞",
-	B: "♝",
-	R: "♜",
-	Q: "♛",
-	K: "♚",
+	p: "♟",
+	n: "♞",
+	b: "♝",
+	r: "♜",
+	q: "♛",
+	k: "♚",
+	P: "♙",
+	N: "♘",
+	B: "♗",
+	R: "♖",
+	Q: "♕",
+	K: "♔",
 };
 
 export const UNICODE_PIECES: Record<string, string> = {
