@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { Moon, Sun } from "lucide-react";
+import { Home, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { StickyHeaderContainer } from "@/components/sticky-header-container";
+import { cn } from "@/lib/utils";
 
 export const Header = () => {
 	const { theme, setTheme } = useTheme();
@@ -14,10 +15,20 @@ export const Header = () => {
 					how.to.chess
 				</Link>
 
-				<div className="flex items-center gap-2">
+				<div className="flex items-center gap-1">
 					<Button variant="outline" className="rounded">
 						Join
 					</Button>
+					<Link
+						to="/"
+						className={cn(buttonVariants({
+							variant: "outline",
+							size: "icon",
+							className: "rounded"
+						}))}
+					>
+						<Home className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+					</Link>
 					<Button
 						variant="outline"
 						size="icon"
