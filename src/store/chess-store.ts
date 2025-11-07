@@ -7,6 +7,7 @@ import type {
 	MoveHistory,
 	CapturedPieces,
 } from "@/constants/chess";
+import { playSound } from "@/utils/sounds";
 
 interface PersistedChessState {
 	moveHistory: MoveHistory[];
@@ -141,6 +142,23 @@ export const useChessStore = create<ChessState>()(
 
 							get().updateCapturedPieces();
 
+							// Play sound
+							if (capturedPiece) {
+								playSound("capture");
+							} else if (
+								(move as Move).flags.includes("k") ||
+								(move as Move).flags.includes("q")
+							) {
+								playSound("castle");
+							} else {
+								playSound("move");
+							}
+
+							// Check for check
+							if (copy.inCheck()) {
+								playSound("check");
+							}
+
 							// Check for game end
 							if (copy.isGameOver()) {
 								setTimeout(() => {
@@ -157,6 +175,7 @@ export const useChessStore = create<ChessState>()(
 						}
 					} catch (e) {
 						console.error("Invalid move:", e);
+						playSound("illegal");
 					}
 					return false;
 				},

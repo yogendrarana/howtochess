@@ -21,13 +21,15 @@ export const Header = () => {
 					</Button>
 					<Link
 						to="/"
-						className={cn(buttonVariants({
-							variant: "outline",
-							size: "icon",
-							className: "rounded"
-						}))}
+						className={cn(
+							buttonVariants({
+								variant: "outline",
+								size: "icon",
+								className: "rounded",
+							}),
+						)}
 					>
-						<Home className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+						<Home className="h-4 w-4" />
 					</Link>
 					<Button
 						variant="outline"
