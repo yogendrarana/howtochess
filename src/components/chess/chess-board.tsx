@@ -13,6 +13,7 @@ import { Square } from "./square";
 import { useChessStore } from "@/store/chess-store";
 import { FILES, type PieceData, RANKS, squareId } from "@/constants/chess";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 export function ChessBoard({ className }: { className?: string }) {
 	const {
@@ -74,15 +75,28 @@ export function ChessBoard({ className }: { className?: string }) {
 		}
 
 		// If clicking a different square, try to move
-		const moveMade = makeMove(selectedSquare, square);
+		const result = makeMove(selectedSquare, square);
 
-		if (!moveMade) {
+		// Handle result
+		if (result.status === "checkmate") {
+			toast("Checkmate!", {
+				description: `${result.winner === "w" ? "White" : "Black"} wins!`,
+			});
+		} else if (result.status === "draw") {
+			toast("Draw!", {
+				description: "The game ended in a draw.",
+			});
+		}
+
+		if (result.status === "illegal") {
 			// If invalid move, select the new square if it has a piece of current turn
 			if (piece && piece.color === game.turn()) {
 				setSelectedSquare(square);
 			} else {
 				setSelectedSquare(null);
 			}
+		} else {
+			setSelectedSquare(null);
 		}
 	};
 
@@ -111,7 +125,16 @@ export function ChessBoard({ className }: { className?: string }) {
 		const to = event.over?.id as string;
 
 		if (to && from !== to) {
-			makeMove(from, to);
+			const result = makeMove(from, to);
+			if (result.status === "checkmate") {
+				toast("Checkmate!", {
+					description: `${result.winner === "w" ? "White" : "Black"} wins!`,
+				});
+			} else if (result.status === "draw") {
+				toast("Draw!", {
+					description: "The game ended in a draw.",
+				});
+			}
 		}
 
 		// Clear selection after drag

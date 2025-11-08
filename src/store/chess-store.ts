@@ -17,6 +17,11 @@ interface PersistedChessState {
 	capturedPieces: CapturedPieces;
 }
 
+interface MoveResult {
+	status: "ok" | "illegal" | "checkmate" | "draw";
+	winner?: "w" | "b";
+}
+
 interface ChessState extends PersistedChessState {
 	// game state
 	game: Chess;
@@ -36,7 +41,7 @@ interface ChessState extends PersistedChessState {
 	setCapturedPieces: (pieces: CapturedPieces) => void;
 
 	// complex actions
-	makeMove: (from: string, to: string, promotion?: string) => boolean;
+	makeMove: (from: string, to: string, promotion?: string) => MoveResult;
 	goToMove: (index: number) => void;
 	removeLastMove: () => void;
 	removeMultipleMoves: (count: number) => void;
@@ -84,7 +89,7 @@ export const useChessStore = create<ChessState>()(
 				setCapturedPieces: (pieces) => set({ capturedPieces: pieces }),
 
 				// Complex actions
-				makeMove: (from, to, promotion = "q") => {
+				makeMove: (from, to, promotion = "q"): MoveResult => {
 					const state = get();
 					try {
 						const copy = new Chess(state.game.fen());
@@ -120,64 +125,65 @@ export const useChessStore = create<ChessState>()(
 							promotion,
 						});
 
-						if (move) {
-							const newHistory = state.moveHistory.slice(
-								0,
-								state.currentMoveIndex + 1,
-							);
-							newHistory.push({
-								fen: copy.fen(),
-								move: `${from}-${to}`,
-								san: (move as Move).san,
-								captured: capturedPiece,
-							});
-
-							set({
-								game: copy,
-								lastMove: { from, to },
-								selectedSquare: null,
-								moveHistory: newHistory,
-								currentMoveIndex: newHistory.length - 1,
-							});
-
-							get().updateCapturedPieces();
-
-							// Play sound
-							if (capturedPiece) {
-								playSound("capture");
-							} else if (
-								(move as Move).flags.includes("k") ||
-								(move as Move).flags.includes("q")
-							) {
-								playSound("castle");
-							} else {
-								playSound("move");
-							}
-
-							// Check for check
-							if (copy.inCheck()) {
-								playSound("check");
-							}
-
-							// Check for game end
-							if (copy.isGameOver()) {
-								setTimeout(() => {
-									if (copy.isCheckmate()) {
-										alert(
-											`Checkmate! ${copy.turn() === "w" ? "Black" : "White"} wins!`,
-										);
-									} else if (copy.isDraw()) {
-										alert("Game drawn!");
-									}
-								}, 100);
-							}
-							return true;
+						if (!move) {
+							playSound("illegal");
+							return { status: "illegal" };
 						}
-					} catch (e) {
-						console.error("Invalid move:", e);
+
+						const newHistory = state.moveHistory.slice(
+							0,
+							state.currentMoveIndex + 1,
+						);
+
+						newHistory.push({
+							fen: copy.fen(),
+							move: `${from}-${to}`,
+							san: (move as Move).san,
+							captured: capturedPiece,
+						});
+
+						set({
+							game: copy,
+							lastMove: { from, to },
+							selectedSquare: null,
+							moveHistory: newHistory,
+							currentMoveIndex: newHistory.length - 1,
+						});
+
+						get().updateCapturedPieces();
+
+						// Play sound
+						if (move.isCapture() && !copy.inCheck()) {
+							playSound("capture");
+						} else if (
+							move.isKingsideCastle() ||
+							move.isQueensideCastle()
+						) {
+							playSound("castle");
+						} else {
+							playSound("move");
+						}
+
+						// Check for check
+						if (copy.inCheck()) {
+							playSound("check");
+						}
+
+						// Check for game end
+						if (copy.isGameOver()) {
+							if (copy.isCheckmate()) {
+								const winner = copy.turn() === "w" ? "b" : "w";
+								return { status: "checkmate", winner };
+							} else if (copy.isDraw()) {
+								return { status: "draw" };
+							}
+						}
+
+						return { status: "ok" };
+					} catch (_e) {
 						playSound("illegal");
+						return { status: "illegal" };
 					}
-					return false;
 				},
 
 				goToMove: (index) => {
