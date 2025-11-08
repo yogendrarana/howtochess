@@ -9,8 +9,8 @@ export function Playground() {
 	return (
 		<div className="h-[calc(100vh-64px)]">
 			<MaxWidthContainer className="h-full border-0 md:border-l md:border-r">
-				<div className="h-full flex gap-8">
-					<div className="h-full flex flex-col justify-between space-y-1 shrink-0">
+				<div className="h-full flex gap-4">
+					<div className="h-full flex flex-col justify-between space-y-1">
 						<PlayerInfo name="Black Player" color="black">
 							<BlackCaptured />
 						</PlayerInfo>
