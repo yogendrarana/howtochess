@@ -9,9 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OpeningRouteRouteImport } from './routes/opening/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlaygroundIndexRouteImport } from './routes/playground/index'
+import { Route as OpeningNameIndexRouteImport } from './routes/opening/$name/index'
 
+const OpeningRouteRoute = OpeningRouteRouteImport.update({
+  id: '/opening',
+  path: '/opening',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -22,35 +29,54 @@ const PlaygroundIndexRoute = PlaygroundIndexRouteImport.update({
   path: '/playground/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OpeningNameIndexRoute = OpeningNameIndexRouteImport.update({
+  id: '/$name/',
+  path: '/$name/',
+  getParentRoute: () => OpeningRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/opening': typeof OpeningRouteRouteWithChildren
   '/playground': typeof PlaygroundIndexRoute
+  '/opening/$name': typeof OpeningNameIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/opening': typeof OpeningRouteRouteWithChildren
   '/playground': typeof PlaygroundIndexRoute
+  '/opening/$name': typeof OpeningNameIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/opening': typeof OpeningRouteRouteWithChildren
   '/playground/': typeof PlaygroundIndexRoute
+  '/opening/$name/': typeof OpeningNameIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/playground'
+  fullPaths: '/' | '/opening' | '/playground' | '/opening/$name'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/playground'
-  id: '__root__' | '/' | '/playground/'
+  to: '/' | '/opening' | '/playground' | '/opening/$name'
+  id: '__root__' | '/' | '/opening' | '/playground/' | '/opening/$name/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OpeningRouteRoute: typeof OpeningRouteRouteWithChildren
   PlaygroundIndexRoute: typeof PlaygroundIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/opening': {
+      id: '/opening'
+      path: '/opening'
+      fullPath: '/opening'
+      preLoaderRoute: typeof OpeningRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -65,11 +91,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlaygroundIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/opening/$name/': {
+      id: '/opening/$name/'
+      path: '/$name'
+      fullPath: '/opening/$name'
+      preLoaderRoute: typeof OpeningNameIndexRouteImport
+      parentRoute: typeof OpeningRouteRoute
+    }
   }
 }
 
+interface OpeningRouteRouteChildren {
+  OpeningNameIndexRoute: typeof OpeningNameIndexRoute
+}
+
+const OpeningRouteRouteChildren: OpeningRouteRouteChildren = {
+  OpeningNameIndexRoute: OpeningNameIndexRoute,
+}
+
+const OpeningRouteRouteWithChildren = OpeningRouteRoute._addFileChildren(
+  OpeningRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OpeningRouteRoute: OpeningRouteRouteWithChildren,
   PlaygroundIndexRoute: PlaygroundIndexRoute,
 }
 export const routeTree = rootRouteImport

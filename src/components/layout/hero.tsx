@@ -10,7 +10,7 @@ export const Hero = () => {
 	return (
 		<section className="flex items-center justify-center border-b">
 			<MaxWidthContainer className="md:border-l md:border-r">
-				<div className="min-h-[45vh] max-w-2xl mx-auto text-center space-y-5 flex flex-col justify-center items-center">
+				<div className="h-[45vh] max-w-2xl mx-auto text-center space-y-5 flex flex-col justify-center items-center">
 					<p className="text-lg md:text-2xl font-bold tracking-tight">
 						Learn chess through patterns,
 						<br />

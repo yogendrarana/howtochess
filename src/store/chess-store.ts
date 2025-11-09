@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 import { Chess, type Move, type Square } from "chess.js";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 import type {
 	PlayerColor,
@@ -8,6 +8,7 @@ import type {
 	CapturedPieces,
 } from "@/constants/chess";
 import { playSound } from "@/utils/sounds";
+import type { ChessMove } from "@/types/chess";
 
 interface PersistedChessState {
 	moveHistory: MoveHistory[];
@@ -29,7 +30,13 @@ interface ChessState extends PersistedChessState {
 	validMoves: string[];
 	lastMove: { from: string; to: string } | null;
 
-	// actions
+	// guide state
+	guidedMode: boolean;
+	guidedMoves: Array<ChessMove>;
+	guidedIndex: number;
+	selectedGuideName: string | null;
+
+	// basic setters
 	setGame: (game: Chess) => void;
 	setSelectedSquare: (square: string | null) => void;
 	setValidMoves: (moves: string[]) => void;
@@ -50,6 +57,14 @@ interface ChessState extends PersistedChessState {
 	resetGame: () => void;
 	updateCapturedPieces: () => void;
 	getGameStatus: () => string;
+
+	// guide actions
+	setGuidedMode: (enabled: boolean) => void;
+	setGuidedMoves: (moves: ChessMove[], name: string) => void;
+	goToGuidedMove: (index: number) => void;
+	guidedForward: () => void;
+	guidedBackward: () => void;
+	exitGuidedMode: () => void;
 }
 
 const getInitialState = () => {
@@ -74,6 +89,10 @@ export const useChessStore = create<ChessState>()(
 
 			return {
 				...initialState,
+				guidedMode: false,
+				guidedMoves: [],
+				guidedIndex: 0,
+				selectedGuideName: null,
 
 				// Basic setters
 				setGame: (game) => set({ game }),
@@ -349,6 +368,64 @@ export const useChessStore = create<ChessState>()(
 					if (game.isCheck())
 						return `Check! ${game.turn() === "w" ? "White" : "Black"} to move.`;
 					return `${game.turn() === "w" ? "White" : "Black"} to move`;
+				},
+
+				// guide actions
+				setGuidedMode: (enabled) => set({ guidedMode: enabled }),
+				setGuidedMoves: (moves, name) => {
+					set({
+						guidedMoves: moves,
+						guidedIndex: 0,
+						selectedGuideName: name,
+						guidedMode: true,
+					});
+
+					const firstFen = moves[0]?.fen ?? new Chess().fen();
+					set({
+						game: new Chess(firstFen),
+						moveHistory: [
+							{ fen: firstFen, move: "", san: "Start" },
+						],
+						currentMoveIndex: 0,
+					});
+				},
+
+				goToGuidedMove: (index) => {
+					const { guidedMoves } = get();
+					if (!guidedMoves[index]) return;
+					const fen = guidedMoves[index].fen;
+					set({
+						game: new Chess(fen),
+						guidedIndex: index,
+					});
+				},
+
+				guidedForward: () => {
+					const { guidedIndex, guidedMoves, goToGuidedMove } = get();
+					if (guidedIndex < guidedMoves.length - 1) {
+						goToGuidedMove(guidedIndex + 1);
+					}
+				},
+
+				guidedBackward: () => {
+					const { guidedIndex, goToGuidedMove } = get();
+					if (guidedIndex > 0) {
+						goToGuidedMove(guidedIndex - 1);
+					}
+				},
+
+				exitGuidedMode: () => {
+					const newGame = new Chess();
+					set({
+						guidedMode: false,
+						guidedMoves: [],
+						guidedIndex: 0,
+						selectedGuideName: null,
+						game: newGame,
+						moveHistory: [
+							{ fen: newGame.fen(), move: "", san: "Start" },
+						],
+					});
 				},
 			};
 		},

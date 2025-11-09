@@ -12,18 +12,30 @@ export function GameControls({ className }: { className?: string }) {
 		goBackward,
 		goForward,
 		removeLastMove,
+
+		// guide related
+		guidedIndex,
+		guidedMoves,
+		guidedMode,
+		guidedBackward,
+		guidedForward,
+		goToGuidedMove,
 	} = useChessStore();
 
-	const canGoBackward = currentMoveIndex > 0;
-	const canGoForward = currentMoveIndex < moveHistory.length - 1;
 	const canUndo = currentMoveIndex > 0;
+	const canGoBackward = guidedMode ? guidedIndex > 0 : currentMoveIndex > 0;
+	const canGoForward = guidedMode
+		? guidedIndex < guidedMoves.length - 1
+		: currentMoveIndex < moveHistory.length - 1;
 
 	return (
 		<div className={cn("flex items-center justify-between", className)}>
 			<div className="space-x-2">
 				<Button
 					variant="outline"
-					onClick={resetGame}
+					onClick={() => {
+						guidedMode ? goToGuidedMove(0) : resetGame;
+					}}
 					disabled={!canGoBackward}
 				>
 					<RotateCcw />
@@ -43,7 +55,7 @@ export function GameControls({ className }: { className?: string }) {
 				<Button
 					variant="outline"
 					size="icon"
-					onClick={goBackward}
+					onClick={guidedMode ? guidedBackward : goBackward}
 					disabled={!canGoBackward}
 				>
 					<ChevronLeft
@@ -56,7 +68,7 @@ export function GameControls({ className }: { className?: string }) {
 				<Button
 					variant="outline"
 					size="icon"
-					onClick={goForward}
+					onClick={guidedMode ? guidedForward : goForward}
 					disabled={!canGoForward}
 				>
 					<ChevronRight

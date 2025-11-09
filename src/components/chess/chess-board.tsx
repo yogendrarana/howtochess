@@ -29,6 +29,9 @@ export function ChessBoard({ className }: { className?: string }) {
 		setValidMoves,
 		makeMove,
 		goToMove,
+
+		// guide related
+		guidedMode,
 	} = useChessStore();
 
 	const position = game.board();
@@ -47,6 +50,9 @@ export function ChessBoard({ className }: { className?: string }) {
 	const displayFiles = isBoardFlipped ? [...FILES].reverse() : FILES;
 
 	const handleSquareClick = (square: string) => {
+		// Disable manual play if guided mode
+		if (guidedMode) return;
+
 		// If we're viewing history, return to current position first
 		if (currentMoveIndex < moveHistory.length - 1) {
 			goToMove(moveHistory.length - 1);
@@ -101,6 +107,9 @@ export function ChessBoard({ className }: { className?: string }) {
 	};
 
 	const handleDragStart = (event: DragStartEvent) => {
+		// Disable manual play if guided mode
+		if (guidedMode) return;
+
 		const from = event.active.id as string;
 		const piece = game.get(from as ChessSquare);
 
@@ -115,6 +124,9 @@ export function ChessBoard({ className }: { className?: string }) {
 	};
 
 	const handleDragEnd = (event: DragEndEvent) => {
+		// Disable manual play if guided mode
+		if (guidedMode) return;
+
 		// If we're viewing history, return to current position first
 		if (currentMoveIndex < moveHistory.length - 1) {
 			goToMove(moveHistory.length - 1);
