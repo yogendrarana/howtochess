@@ -15,7 +15,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export function GuideInfo() {
 	const { name } = useParams({ from: "/opening/$name/" });
 	const opening = chessOpeningMap[name];
-	const { guidedMoves, guidedIndex, setGuidedMoves } = useChessStore();
+	const { guidedMoves, guidedIndex, setGuidedMoves, setGuidedLineName } =
+		useChessStore();
 
 	if (!opening) return <div className="p-4">Opening not found.</div>;
 
@@ -33,7 +34,10 @@ export function GuideInfo() {
 					const line = opening.lines.find(
 						(l) => l.id === variationId,
 					);
-					if (line) setGuidedMoves(line.moves, opening.name);
+					if (line) {
+						setGuidedMoves(line.moves);
+						setGuidedLineName(line.name);
+					}
 				}}
 			>
 				<SelectTrigger className="w-full rounded">
@@ -56,7 +60,7 @@ export function GuideInfo() {
 						<AnimatePresence initial={false}>
 							{pastMoves.length > 0 ? (
 								pastMoves.map((move, i) => {
-									const moveNumber = guidedIndex - i + 1;
+									const moveNumber = guidedIndex - i;
 									return (
 										<motion.div
 											key={move.fen}

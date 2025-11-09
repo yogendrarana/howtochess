@@ -14,6 +14,12 @@ export function generateMovesWithFEN(
 	const chess = new Chess();
 	const result: ChessMove[] = [];
 
+	result.push({
+		fen: chess.fen(),
+		san: "",
+		comment: "Start",
+	});
+
 	sanMoves.forEach((san, index) => {
 		const move = chess.move(san);
 		if (!move) {

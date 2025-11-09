@@ -19,7 +19,8 @@ export const Route = createFileRoute("/opening/$name/")({
 function RouteComponent() {
 	const { name } = Route.useParams();
 	const opening = chessOpeningMap[name];
-	const { setGuidedMoves, setGuidedMode, resetGame } = useChessStore();
+	const { setGuidedMoves, setGuidedMode, resetGame, setGuidedLineName } =
+		useChessStore();
 
 	useEffect(() => {
 		if (!opening) return;
@@ -31,13 +32,14 @@ function RouteComponent() {
 		if (defaultLine) {
 			setGuidedMode(true);
 			resetGame();
-			setGuidedMoves(defaultLine.moves, opening.name);
+			setGuidedMoves(defaultLine.moves);
+			setGuidedLineName(defaultLine.name);
 		}
 
 		return () => {
 			setGuidedMode(false);
 		};
-	}, [opening, setGuidedMode, setGuidedMoves, resetGame]);
+	}, [opening, setGuidedMode, setGuidedMoves, resetGame, setGuidedLineName]);
 
 	if (!opening) {
 		return <div className="p-4">Opening not found.</div>;

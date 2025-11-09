@@ -34,7 +34,7 @@ interface ChessState extends PersistedChessState {
 	guidedMode: boolean;
 	guidedMoves: Array<ChessMove>;
 	guidedIndex: number;
-	selectedGuideName: string | null;
+	guidedLineName: string | null;
 
 	// basic setters
 	setGame: (game: Chess) => void;
@@ -60,7 +60,8 @@ interface ChessState extends PersistedChessState {
 
 	// guide actions
 	setGuidedMode: (enabled: boolean) => void;
-	setGuidedMoves: (moves: ChessMove[], name: string) => void;
+	setGuidedMoves: (moves: ChessMove[]) => void;
+	setGuidedLineName: (name: string) => void;
 	goToGuidedMove: (index: number) => void;
 	guidedForward: () => void;
 	guidedBackward: () => void;
@@ -92,7 +93,7 @@ export const useChessStore = create<ChessState>()(
 				guidedMode: false,
 				guidedMoves: [],
 				guidedIndex: 0,
-				selectedGuideName: null,
+				guidedLineName: null,
 
 				// Basic setters
 				setGame: (game) => set({ game }),
@@ -372,21 +373,12 @@ export const useChessStore = create<ChessState>()(
 
 				// guide actions
 				setGuidedMode: (enabled) => set({ guidedMode: enabled }),
-				setGuidedMoves: (moves, name) => {
+				setGuidedLineName: (name) => set({ guidedLineName: name }),
+				setGuidedMoves: (moves) => {
 					set({
 						guidedMoves: moves,
 						guidedIndex: 0,
-						selectedGuideName: name,
 						guidedMode: true,
-					});
-
-					const firstFen = moves[0]?.fen ?? new Chess().fen();
-					set({
-						game: new Chess(firstFen),
-						moveHistory: [
-							{ fen: firstFen, move: "", san: "Start" },
-						],
-						currentMoveIndex: 0,
 					});
 				},
 
@@ -415,16 +407,11 @@ export const useChessStore = create<ChessState>()(
 				},
 
 				exitGuidedMode: () => {
-					const newGame = new Chess();
 					set({
 						guidedMode: false,
 						guidedMoves: [],
 						guidedIndex: 0,
-						selectedGuideName: null,
-						game: newGame,
-						moveHistory: [
-							{ fen: newGame.fen(), move: "", san: "Start" },
-						],
+						guidedLineName: null,
 					});
 				},
 			};
