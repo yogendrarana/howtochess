@@ -30,6 +30,7 @@ export function generateMovesWithFEN(
 			san,
 			fen: chess.fen(),
 			comment: comments?.[index],
+			captured: move.isCapture(),
 		});
 	});
 

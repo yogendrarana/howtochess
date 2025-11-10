@@ -19,11 +19,22 @@ export const Route = createFileRoute("/opening/$name/")({
 function RouteComponent() {
 	const { name } = Route.useParams();
 	const opening = chessOpeningMap[name];
-	const { setGuidedMoves, setGuidedMode, resetGame, setGuidedLineName } =
-		useChessStore();
+	const {
+		setGuidedMoves,
+		setGuidedMode,
+		resetGame,
+		setGuidedLineName,
+		setIsBoardFlipped,
+	} = useChessStore();
 
 	useEffect(() => {
 		if (!opening) return;
+
+		if (opening.color === "black") {
+			setIsBoardFlipped(true);
+		} else {
+			setIsBoardFlipped(false);
+		}
 
 		// pick the first variation or main line
 		const defaultLine =
@@ -39,7 +50,14 @@ function RouteComponent() {
 		return () => {
 			setGuidedMode(false);
 		};
-	}, [opening, setGuidedMode, setGuidedMoves, resetGame, setGuidedLineName]);
+	}, [
+		opening,
+		setGuidedMode,
+		setGuidedMoves,
+		resetGame,
+		setGuidedLineName,
+		setIsBoardFlipped,
+	]);
 
 	if (!opening) {
 		return <div className="p-4">Opening not found.</div>;

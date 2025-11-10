@@ -45,10 +45,6 @@ export function ChessBoard({ className }: { className?: string }) {
 		}),
 	);
 
-	// Get display ranks and files based on board orientation
-	const displayRanks = isBoardFlipped ? [...RANKS].reverse() : RANKS;
-	const displayFiles = isBoardFlipped ? [...FILES].reverse() : FILES;
-
 	const handleSquareClick = (square: string) => {
 		// Disable manual play if guided mode
 		if (guidedMode) return;
@@ -191,8 +187,8 @@ export function ChessBoard({ className }: { className?: string }) {
 					})}
 				>
 					<div className="grid grid-cols-8 border-4 rounded border-primary">
-						{displayRanks.map((rank) =>
-							displayFiles.map((file) => {
+						{RANKS.map((rank) =>
+							FILES.map((file) => {
 								const id = squareId(file, rank);
 								return (
 									<Square

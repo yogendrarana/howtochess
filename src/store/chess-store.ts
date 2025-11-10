@@ -375,27 +375,42 @@ export const useChessStore = create<ChessState>()(
 				setGuidedMode: (enabled) => set({ guidedMode: enabled }),
 				setGuidedLineName: (name) => set({ guidedLineName: name }),
 				setGuidedMoves: (moves) => {
+					const move = moves[0];
 					set({
+						game: new Chess(move.fen),
 						guidedMoves: moves,
 						guidedIndex: 0,
 						guidedMode: true,
 					});
+
+					// TODO: play start sound here
 				},
 
 				goToGuidedMove: (index) => {
 					const { guidedMoves } = get();
 					if (!guidedMoves[index]) return;
-					const fen = guidedMoves[index].fen;
+					const move = guidedMoves[index];
+					const fen = move.fen;
+
 					set({
 						game: new Chess(fen),
 						guidedIndex: index,
 					});
+
+					// play appropriate sound
+					if (move.captured) {
+						playSound("capture");
+					} else {
+						playSound("move");
+					}
 				},
 
 				guidedForward: () => {
 					const { guidedIndex, guidedMoves, goToGuidedMove } = get();
 					if (guidedIndex < guidedMoves.length - 1) {
 						goToGuidedMove(guidedIndex + 1);
+					} else {
+						playSound("illegal");
 					}
 				},
 
@@ -403,6 +418,8 @@ export const useChessStore = create<ChessState>()(
 					const { guidedIndex, goToGuidedMove } = get();
 					if (guidedIndex > 0) {
 						goToGuidedMove(guidedIndex - 1);
+					} else {
+						playSound("illegal");
 					}
 				},
 
@@ -413,6 +430,7 @@ export const useChessStore = create<ChessState>()(
 						guidedIndex: 0,
 						guidedLineName: null,
 					});
+					playSound("move");
 				},
 			};
 		},

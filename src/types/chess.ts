@@ -2,6 +2,7 @@ export interface ChessMove {
 	san: string;
 	fen: string;
 	comment?: string;
+	captured?: boolean;
 }
 
 export interface OpeningLine {

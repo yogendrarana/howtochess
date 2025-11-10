@@ -1,7 +1,7 @@
 import type { OpeningLine } from "@/types/chess";
 import { generateMovesWithFEN } from "@/utils/generate-moves-with-fen";
 
-export const caroKannLines: Array<OpeningLine> = [
+export const caroKannDefenseLines: Array<OpeningLine> = [
 	{
 		id: "main",
 		name: "Main Line (Classical Variation)",
