@@ -2,6 +2,7 @@ import type { ChessOpening } from "@/types/chess";
 import { catalanOpeningLines } from "./lines/catalan-opening";
 import { caroKannDefenseLines } from "./lines/caro-kann-defense";
 import { evansGambitLines } from "./lines/evans-gambit";
+import { italianGameLines } from "./lines/italian-game";
 
 /**
  * @todo
@@ -47,7 +48,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "white",
 		description:
 			"The Italian Game begins with 1.e4 e5 2.Nf3 Nc6 3.Bc4, aiming for quick development and control of the center, often leading to open, tactical play.",
-		lines: [],
+		lines: italianGameLines,
 	},
 	"scotch-game": {
 		id: "scotch-game",

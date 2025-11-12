@@ -91,10 +91,10 @@ export function OpeningsSection() {
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="flex items-baseline justify-between relative">
-								<Badge variant="outline" className="text-xs">
+								<Badge variant={opening?.lines?.length >0  ? "outline" : "secondary"} className="text-xs">
 									{opening.lines.length
 										? "Available"
-										: "Coming Soon"}
+										: "Coming Soon..."}
 								</Badge>
 
 								<Link
@@ -105,7 +105,7 @@ export function OpeningsSection() {
 										variant: "outline",
 										size: "sm",
 										className: cn(
-											"ml-auto rounded transition-all",
+											"ml-auto rounded transition-all text-xs",
 											!opening.lines.length &&
 												"cursor-not-allowed opacity-50 pointer-events-none",
 										),
