@@ -175,7 +175,7 @@ export function ChessBoard({ className }: { className?: string }) {
 	}, [selectedSquare, game, setValidMoves]);
 
 	return (
-		<div className={cn("flex flex-col gap-4", className)}>
+		<div className={className}>
 			<DndContext
 				sensors={sensors}
 				onDragStart={handleDragStart}
@@ -186,7 +186,7 @@ export function ChessBoard({ className }: { className?: string }) {
 						"rotate-180": isBoardFlipped,
 					})}
 				>
-					<div className="grid grid-cols-8 border-4 rounded border-primary">
+					<div className="w-full grid grid-cols-8 border-4 rounded border-primary aspect-square">
 						{RANKS.map((rank) =>
 							FILES.map((file) => {
 								const id = squareId(file, rank);
@@ -196,7 +196,7 @@ export function ChessBoard({ className }: { className?: string }) {
 										id={id}
 										rank={rank}
 										file={file}
-										className="h-24 w-24"
+										className="aspect-square w-full h-full"
 										isHighlighted={validMoves.includes(id)}
 										isLastMove={
 											lastMove?.from === id ||

@@ -20,9 +20,8 @@ export function PlayerInfo({
 	color,
 }: PlayerInfoProps) {
 	return (
-		<div className={cn("flex gap-2 items-center", className)}>
-			{/* Avatar (fixed square height) */}
-			<Avatar className="w-12 h-12 rounded-md shrink-0 border">
+		<div className={cn("flex gap-2", className)}>
+			<Avatar className="w-10 h-10 rounded shrink-0 border">
 				{imageUrl ? (
 					<AvatarImage src={imageUrl} alt={`${name} avatar`} />
 				) : (
@@ -32,10 +31,8 @@ export function PlayerInfo({
 				)}
 			</Avatar>
 
-			{/* Right side */}
-			<div className="h-12 flex-1 flex flex-col justify-between">
-				{children}
-			</div>
+			{/* Allow captured pieces to wrap to new lines */}
+			<div className="flex-1">{children}</div>
 		</div>
 	);
 }

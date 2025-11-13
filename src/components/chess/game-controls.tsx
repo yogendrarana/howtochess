@@ -34,9 +34,11 @@ export function GameControls({ className }: { className?: string }) {
 				<Button
 					variant="outline"
 					onClick={() => {
-						guidedMode ? goToGuidedMove(0) : resetGame;
+						guidedMode ? goToGuidedMove(0) : resetGame();
 					}}
 					disabled={!canGoBackward}
+					size="sm"
+					className="rounded"
 				>
 					<RotateCcw />
 					Restart
@@ -46,6 +48,8 @@ export function GameControls({ className }: { className?: string }) {
 					variant="outline"
 					onClick={removeLastMove}
 					disabled={!canUndo}
+					size="sm"
+					className="rounded"
 				>
 					<Undo2 /> Undo
 				</Button>
@@ -57,9 +61,10 @@ export function GameControls({ className }: { className?: string }) {
 					size="icon"
 					onClick={guidedMode ? guidedBackward : goBackward}
 					disabled={!canGoBackward}
+					className="size-8 rounded"
 				>
 					<ChevronLeft
-						className={cn("h-5 w-5", {
+						className={cn("", {
 							"opacity-50": !canGoBackward,
 						})}
 					/>
@@ -70,9 +75,10 @@ export function GameControls({ className }: { className?: string }) {
 					size="icon"
 					onClick={guidedMode ? guidedForward : goForward}
 					disabled={!canGoForward}
+					className="size-8 rounded"
 				>
 					<ChevronRight
-						className={cn("h-5 w-5", {
+						className={cn("", {
 							"opacity-50": !canGoForward,
 						})}
 					/>

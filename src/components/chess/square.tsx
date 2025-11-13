@@ -81,11 +81,15 @@ export function Square({
 			)}
 
 			{rank === 1 && (
-				<div className="absolute bottom-1 right-2">{file}</div>
+				<div className="absolute bottom-1 right-2 text-xs md:text-sm">
+					{file}
+				</div>
 			)}
 
 			{file === "a" && (
-				<div className="absolute top-1 left-2">{rank}</div>
+				<div className="absolute top-1 left-2 text-xs md:text-sm">
+					{rank}
+				</div>
 			)}
 
 			<div className="flex justify-center items-center">{children}</div>

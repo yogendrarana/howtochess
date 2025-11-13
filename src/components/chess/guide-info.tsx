@@ -75,7 +75,7 @@ export function GuideInfo({ className }: { className: string }) {
 											className="p-2 border rounded bg-muted text-sm"
 										>
 											<p className="font-semibold">
-												Move {moveNumber} ({move.san}): 
+												Move {moveNumber} ({move.san}):
 												<span className="ml-2 font-normal">
 													{move.comment}
 												</span>

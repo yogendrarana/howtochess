@@ -15,6 +15,7 @@ import { WhiteQueen } from "./icons/wq";
 import { BlackBishop } from "./icons/bb";
 import { BlackKing } from "./icons/bk";
 import { BlackQueen } from "./icons/bq";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Map piece keys to SVG React components
 const PieceComponents: Record<string, React.FC<SVGProps<SVGSVGElement>>> = {
@@ -33,6 +34,8 @@ const PieceComponents: Record<string, React.FC<SVGProps<SVGSVGElement>>> = {
 };
 
 export function Piece({ id, symbol }: { id: string; symbol: string }) {
+	const isMobile = useIsMobile();
+
 	const { attributes, listeners, setNodeRef, transform, isDragging } =
 		useDraggable({
 			id,
@@ -56,11 +59,14 @@ export function Piece({ id, symbol }: { id: string; symbol: string }) {
 			className="w-full h-full flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
 		>
 			{SvgPiece ? (
-				<SvgPiece width={50} height={50} />
+				<SvgPiece
+					width={isMobile ? 30 : 50}
+					height={isMobile ? 30 : 50}
+				/>
 			) : (
 				<div
 					className={cn(
-						"text-4xl font-bold",
+						"text-xl md:text-4xl font-bold",
 						symbol[0] === "w" ? "text-white" : "text-black",
 					)}
 				>

@@ -91,7 +91,14 @@ export function OpeningsSection() {
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="flex items-baseline justify-between relative">
-								<Badge variant={opening?.lines?.length >0  ? "outline" : "secondary"} className="text-xs">
+								<Badge
+									variant={
+										opening?.lines?.length > 0
+											? "outline"
+											: "secondary"
+									}
+									className="text-xs"
+								>
 									{opening.lines.length
 										? "Available"
 										: "Coming Soon..."}

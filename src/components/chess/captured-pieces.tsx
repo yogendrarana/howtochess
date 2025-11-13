@@ -12,7 +12,7 @@ function useCapturedPiecesRenderer() {
 			counts.set(piece, current + 1);
 			const key = `${color}-${piece}-${current}`;
 			return (
-				<span key={key} className="text-2xl mx-1">
+				<span key={key} className="text-lg mx-1">
 					{PIECE_SYMBOLS[piece] || piece}
 				</span>
 			);
@@ -26,11 +26,13 @@ export function WhiteCaptured() {
 	const { capturedPieces, renderCapturedPieces } =
 		useCapturedPiecesRenderer();
 	return (
-		<div className="h-full px-4 py-2 rounded border bg-muted flex flex-wrap items-center">
+		<div className="min-h-10 w-full px-2 rounded border bg-muted flex flex-wrap items-center gap-1">
 			{capturedPieces.w.length > 0 ? (
 				renderCapturedPieces("w")
 			) : (
-				<span className="text-sm text-muted-foreground">None</span>
+				<span className="w-full text-sm text-muted-foreground">
+					None
+				</span>
 			)}
 		</div>
 	);
@@ -41,11 +43,13 @@ export function BlackCaptured() {
 		useCapturedPiecesRenderer();
 
 	return (
-		<div className="h-full px-4 py-2 rounded border bg-muted flex flex-wrap items-center">
+		<div className="min-h-10 w-full px-2 rounded border bg-muted flex flex-wrap items-center gap-1">
 			{capturedPieces.b.length > 0 ? (
 				renderCapturedPieces("b")
 			) : (
-				<span className="text-sm text-muted-foreground">None</span>
+				<span className="w-full text-sm text-muted-foreground">
+					None
+				</span>
 			)}
 		</div>
 	);
