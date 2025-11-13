@@ -11,16 +11,7 @@ export function GameInfo({ className }: { className?: string }) {
 
 	return (
 		<div className={cn("h-full flex flex-col gap-2", className)}>
-			<Button
-				variant="outline"
-				onClick={() => setIsBoardFlipped(!isBoardFlipped)}
-				size="sm"
-				className="rounded"
-			>
-				<Repeat2 className="mr-1 h-4 w-4" />
-				{isBoardFlipped ? "Play as White" : "Play as Black"}
-			</Button>
-
+			<GameControls />
 			<div className="flex-1 flex flex-col min-h-0">
 				{guidedMode ? (
 					<GuideInfo className="flex-1" />
@@ -28,7 +19,18 @@ export function GameInfo({ className }: { className?: string }) {
 					<MoveHistory className="flex-1" />
 				)}
 			</div>
-			<GameControls />
+
+			{!guidedMode && (
+				<Button
+					variant="outline"
+					onClick={() => setIsBoardFlipped(!isBoardFlipped)}
+					size="sm"
+					className="rounded"
+				>
+					<Repeat2 className="mr-1 h-4 w-4" />
+					{isBoardFlipped ? "Play as White" : "Play as Black"}
+				</Button>
+			)}
 		</div>
 	);
 }
