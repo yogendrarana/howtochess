@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-import GameInfo from "./game-info";
+import { GameInfo } from "./game-info";
 import { ChessBoard } from "./chess-board";
 import { PlayerInfo } from "./player-info";
 import { BlackCaptured, WhiteCaptured } from "./captured-pieces";
