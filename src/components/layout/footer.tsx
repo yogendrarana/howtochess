@@ -1,33 +1,36 @@
 import { Link } from "@tanstack/react-router";
-
 import { cn } from "@/lib/utils";
 import { siteData } from "@/data/site";
 import MaxWidthContainer from "@/components/max-width-container";
+import { Logo } from "../logo";
 
 export function Footer() {
 	return (
 		<footer>
-			<MaxWidthContainer className="py-0 sm:border-l sm:border-r">
+			<MaxWidthContainer className="py-6 sm:border-l sm:border-r">
 				<div
 					className={cn(
-						"h-16 flex flex-col gap-4 text-sm text-muted-foreground sm:flex-row sm:justify-between sm:items-center",
+						"flex flex-col items-center justify-center gap-4 text-sm text-muted-foreground sm:flex-row sm:justify-between",
 					)}
 				>
-					<p>
-						© {new Date().getFullYear()} {siteData.name}. All rights
-						reserved.
-					</p>
+					{/* Logo + copyright */}
+					<div className="flex flex-col items-center sm:items-start gap-2">
+						<Logo showName className="flex" />
+						<span className="text-center sm:text-left">
+							© {new Date().getFullYear()} How to Chess. All
+							rights reserved.
+						</span>
+					</div>
 
-					<div className="flex flex-col sm:items-end gap-1">
-						<p>
-							Created by{" "}
-							<Link
-								to={siteData.author.links.website}
-								className="underline hover:text-foreground"
-							>
-								Yogendra Rana
-							</Link>
-						</p>
+					{/* Author info */}
+					<div className="flex flex-col items-center sm:items-end gap-1 text-sm">
+						<span>Created by </span>
+						<Link
+							to={siteData.author.links.website}
+							className="underline hover:text-foreground transition-colors"
+						>
+							Yogendra Rana
+						</Link>
 					</div>
 				</div>
 			</MaxWidthContainer>

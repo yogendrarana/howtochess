@@ -4,6 +4,7 @@ import { useTheme } from "@/components/providers/theme-provider";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import MaxWidthContainer from "../max-width-container";
+import { Logo } from "../logo";
 
 export const Header = () => {
 	const { theme, setTheme } = useTheme();
@@ -17,7 +18,7 @@ export const Header = () => {
 							to="/"
 							className="text-lg font-semibold tracking-tight"
 						>
-							how.to.chess
+							<Logo />
 						</Link>
 
 						<div className="flex items-center gap-1">

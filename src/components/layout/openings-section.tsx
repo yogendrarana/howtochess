@@ -39,7 +39,7 @@ export function OpeningsSection() {
 		<section className="border-b flex-1">
 			<MaxWidthContainer className="h-full border-0 md:border-l md:border-r">
 				<div className="mb-2 flex items-center justify-between">
-					<h2 className="text-xl font-medium">Chess openings</h2>
+					<h2 className="text-xl font-bold">Chess openings</h2>
 
 					<div className="p-1 flex items-center rounded bg-muted border border-dashed">
 						{/** biome-ignore lint/a11y/useButtonType: <rule> */}
