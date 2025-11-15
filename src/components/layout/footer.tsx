@@ -26,6 +26,7 @@ export function Footer() {
 					<div className="flex flex-col items-center sm:items-end gap-1 text-sm">
 						<span>Created by </span>
 						<Link
+							target="_blank"
 							to={siteData.author.links.website}
 							className="underline hover:text-foreground transition-colors"
 						>
