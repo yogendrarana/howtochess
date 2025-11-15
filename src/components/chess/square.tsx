@@ -1,15 +1,15 @@
 import type React from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
+import { useChessStore } from "@/store/chess-store";
 
 interface SquareProps {
 	id: string;
 	children?: React.ReactNode;
 	isHighlighted: boolean;
-	isLastMove: boolean;
+	isLastMove?: boolean;
 	isSelected: boolean;
 	onClick: () => void;
-	isBoardFlipped: boolean;
 	className?: string;
 	rank: number;
 	file: string;
@@ -19,15 +19,14 @@ export function Square({
 	id,
 	children,
 	isHighlighted,
-	isLastMove,
 	isSelected,
 	onClick,
-	isBoardFlipped,
 	className,
 	rank,
 	file,
 }: SquareProps) {
 	const { setNodeRef, isOver } = useDroppable({ id });
+	const { isBoardFlipped } = useChessStore();
 
 	const isDark = (id.charCodeAt(0) + parseInt(id[1], 10)) % 2 === 0;
 	const baseColor = isDark ? "bg-green-700" : "bg-green-200";
@@ -56,6 +55,7 @@ export function Square({
 				<div className="h-4 w-4 md:w-6 md:h-6 bg-black/30 bg-opacity-30 rounded-full" />
 			)}
 
+			{/* selected square */}
 			{isSelected && (
 				<div className="absolute inset-0 pointer-events-none">
 					<div
@@ -81,13 +81,37 @@ export function Square({
 				</div>
 			)}
 
-			{rank === 1 && (
-				<div className="absolute -bottom-0.5 right-0.5 text-xs md:text-sm">
+			{/* file alphabets on left when playing as white */}
+			{!isBoardFlipped && rank === 1 && (
+				<div
+					className={
+						"absolute -bottom-0.5 right-0.5 text-xs md:text-sm"
+					}
+				>
 					{file}
 				</div>
 			)}
 
-			{file === "a" && (
+			{/* rank numbers on left when playing as white */}
+			{!isBoardFlipped && file === "a" && (
+				<div className="absolute top-1 left-1 text-xs md:text-sm">
+					{rank}
+				</div>
+			)}
+
+			{/* file alphabets on left when playing as black */}
+			{isBoardFlipped && rank === 8 && (
+				<div
+					className={
+						"absolute -bottom-0.5 right-0.5 text-xs md:text-sm"
+					}
+				>
+					{file}
+				</div>
+			)}
+
+			{/* rank numbers on left when playing as black */}
+			{isBoardFlipped && file === "h" && (
 				<div className="absolute top-1 left-1 text-xs md:text-sm">
 					{rank}
 				</div>

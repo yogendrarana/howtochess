@@ -204,7 +204,6 @@ export function ChessBoard({ className }: { className?: string }) {
 										}
 										isSelected={selectedSquare === id}
 										onClick={() => handleSquareClick(id)}
-										isBoardFlipped={isBoardFlipped}
 									>
 										{renderPiece(file, rank)}
 									</Square>
