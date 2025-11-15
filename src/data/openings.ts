@@ -1,9 +1,15 @@
 import type { ChessOpening } from "@/types/chess";
+import { ruyLopezLines } from "./lines/ruy-lopez";
+import { scotchGameLines } from "./lines/scotch-game";
 import { evansGambitLines } from "./lines/evans-gambit";
 import { italianGameLines } from "./lines/italian-game";
 import { kingsGambitLines } from "./lines/kings-gambit";
+import { retiOpeningLines } from "./lines/reti-opening";
+import { londonSystemLines } from "./lines/london-system";
+import { queensGambitLines } from "./lines/queens-gambit";
 import { catalanOpeningLines } from "./lines/catalan-opening";
 import { caroKannDefenseLines } from "./lines/caro-kann-defense";
+import { kingsIndianAttackLines } from "./lines/kings-indian-attack";
 
 /**
  * @todo
@@ -40,7 +46,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "white",
 		description:
 			"A flexible system for White that can be played against various Black setups. Features kingside fianchetto, solid pawn structure, and gradual kingside expansion. Popular for its reliability and positional nature.",
-		lines: [],
+		lines: kingsIndianAttackLines,
 	},
 	"italian-game": {
 		id: "italian-game",
@@ -58,7 +64,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "white",
 		description:
 			"A direct and aggressive opening against 1...e5. White immediately challenges the center with 3.d4, opening lines for rapid development and active piece play. Known for leading to open, tactical positions.",
-		lines: [],
+		lines: scotchGameLines,
 	},
 	"kings-gambit": {
 		id: "kings-gambit",
@@ -76,7 +82,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "white",
 		description:
 			"A hypermodern opening starting with 1.Nf3. White controls the center from a distance with pieces and flank pawns, often transposing into English, King's Indian Attack, or other systems. Known for flexibility and strategic complexity.",
-		lines: [],
+		lines: retiOpeningLines,
 	},
 	"london-system": {
 		id: "london-system",
@@ -85,7 +91,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "white",
 		description:
 			"A solid and flexible setup for White involving d4, Nf3, and Bf4, the London System emphasizes structure and piece coordination over sharp theory.",
-		lines: [],
+		lines: londonSystemLines,
 	},
 	"queens-gambit": {
 		id: "queens-gambit",
@@ -94,7 +100,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "white",
 		description:
 			"A classical opening starting with 1.d4. White offers a pawn to gain central control and rapid development. Leads to rich strategic positions with both sides having clear plans.",
-		lines: [],
+		lines: queensGambitLines,
 	},
 	"ruy-lopez": {
 		id: "ruy-lopez",
@@ -103,7 +109,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "white",
 		description:
 			"A classical opening against 1...e5. White develops pieces actively while putting immediate pressure on Black's center. Known for deep strategic complexity and enduring popularity.",
-		lines: [],
+		lines: ruyLopezLines,
 	},
 
 	// --- Black Openings ---
