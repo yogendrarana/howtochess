@@ -1,4 +1,10 @@
-import { RotateCcw, Undo2, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+	RotateCcw,
+	Undo2,
+	ChevronLeft,
+	ChevronRight,
+	Repeat2,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -8,10 +14,12 @@ export function GameControls({ className }: { className?: string }) {
 	const {
 		currentMoveIndex,
 		moveHistory,
+		isBoardFlipped,
 		resetGame,
 		goBackward,
 		goForward,
 		removeLastMove,
+		setIsBoardFlipped,
 
 		// guide related
 		guidedIndex,
@@ -29,61 +37,75 @@ export function GameControls({ className }: { className?: string }) {
 		: currentMoveIndex < moveHistory.length - 1;
 
 	return (
-		<div className={cn("flex items-center justify-between", className)}>
-			<div className="space-x-2">
-				<Button
-					variant="outline"
-					onClick={() => {
-						guidedMode ? goToGuidedMove(0) : resetGame();
-					}}
-					disabled={!canGoBackward}
-					size="sm"
-					className="rounded"
-				>
-					<RotateCcw />
-					Restart
-				</Button>
+		<div className={cn("space-y-2", className)}>
+			<div className="flex items-center justify-between">
+				<div className="space-x-2">
+					<Button
+						variant="outline"
+						onClick={() => {
+							guidedMode ? goToGuidedMove(0) : resetGame();
+						}}
+						disabled={!canGoBackward}
+						size="sm"
+						className="rounded"
+					>
+						<RotateCcw />
+						Restart
+					</Button>
 
-				<Button
-					variant="outline"
-					onClick={removeLastMove}
-					disabled={!canUndo}
-					size="sm"
-					className="rounded"
-				>
-					<Undo2 /> Undo
-				</Button>
+					<Button
+						variant="outline"
+						onClick={removeLastMove}
+						disabled={!canUndo}
+						size="sm"
+						className="rounded"
+					>
+						<Undo2 /> Undo
+					</Button>
+				</div>
+
+				<div className="space-x-2">
+					<Button
+						variant="outline"
+						size="icon"
+						onClick={guidedMode ? guidedBackward : goBackward}
+						disabled={!canGoBackward}
+						className="size-8 rounded"
+					>
+						<ChevronLeft
+							className={cn("", {
+								"opacity-50": !canGoBackward,
+							})}
+						/>
+					</Button>
+
+					<Button
+						variant="outline"
+						size="icon"
+						onClick={guidedMode ? guidedForward : goForward}
+						disabled={!canGoForward}
+						className="size-8 rounded"
+					>
+						<ChevronRight
+							className={cn("", {
+								"opacity-50": !canGoForward,
+							})}
+						/>
+					</Button>
+				</div>
 			</div>
 
-			<div className="space-x-2">
+			{!guidedMode && (
 				<Button
 					variant="outline"
-					size="icon"
-					onClick={guidedMode ? guidedBackward : goBackward}
-					disabled={!canGoBackward}
-					className="size-8 rounded"
+					onClick={() => setIsBoardFlipped(!isBoardFlipped)}
+					size="sm"
+					className="w-full rounded"
 				>
-					<ChevronLeft
-						className={cn("", {
-							"opacity-50": !canGoBackward,
-						})}
-					/>
+					<Repeat2 className="mr-1 h-4 w-4" />
+					{isBoardFlipped ? "Play as White" : "Play as Black"}
 				</Button>
-
-				<Button
-					variant="outline"
-					size="icon"
-					onClick={guidedMode ? guidedForward : goForward}
-					disabled={!canGoForward}
-					className="size-8 rounded"
-				>
-					<ChevronRight
-						className={cn("", {
-							"opacity-50": !canGoForward,
-						})}
-					/>
-				</Button>
-			</div>
+			)}
 		</div>
 	);
 }
