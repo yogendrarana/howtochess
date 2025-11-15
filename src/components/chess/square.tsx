@@ -51,43 +51,44 @@ export function Square({
 				className,
 			)}
 		>
+			{/* dot for valid moves */}
 			{isHighlighted && !children && (
-				<div className="w-4 h-4 bg-black bg-opacity-30 rounded-full" />
+				<div className="h-4 w-4 md:w-6 md:h-6 bg-black/30 bg-opacity-30 rounded-full" />
 			)}
 
 			{isSelected && (
 				<div className="absolute inset-0 pointer-events-none">
 					<div
 						className={cn(
-							"absolute top-5 left-5 w-3 h-3 border-t-3 border-l-3 rounded-tl-lg border-primary",
+							"absolute top-1 left-1 md:top-5 md:left-5 h-2 w-2 md:w-3 md:h-3 border-t-3 border-l-3 rounded-tl-lg border-primary",
 						)}
 					/>
 					<div
 						className={cn(
-							"absolute top-5 right-5 w-3 h-3 border-t-3 border-r-3 rounded-tr-lg border-primary",
+							"absolute top-1 right-1 md:top-5 md:right-5 h-2 w-2 md:w-3 md:h-3 border-t-3 border-r-3 rounded-tr-lg border-primary",
 						)}
 					/>
 					<div
 						className={cn(
-							"absolute bottom-5 left-5 w-3 h-3 border-b-3 border-l-3 rounded-bl-lg border-primary",
+							"absolute bottom-1 left-1  md:bottom-5 md:left-5 h-2 w-2 md:w-3 md:h-3 border-b-3 border-l-3 rounded-bl-lg border-primary",
 						)}
 					/>
 					<div
 						className={cn(
-							"absolute bottom-5 right-5 w-3 h-3 border-b-3 border-r-3 rounded-br-lg border-primary",
+							"absolute bottom-1 md:bottom-5 right-1 md:right-5 h-2 w-2 md:w-3 md:h-3 border-b-3 border-r-3 rounded-br-lg border-primary",
 						)}
 					/>
 				</div>
 			)}
 
 			{rank === 1 && (
-				<div className="absolute bottom-1 right-2 text-xs md:text-sm">
+				<div className="absolute -bottom-0.5 right-0.5 text-xs md:text-sm">
 					{file}
 				</div>
 			)}
 
 			{file === "a" && (
-				<div className="absolute top-1 left-2 text-xs md:text-sm">
+				<div className="absolute top-1 left-1 text-xs md:text-sm">
 					{rank}
 				</div>
 			)}

@@ -46,7 +46,7 @@ export function OpeningsSection() {
 						<button
 							onClick={() => setColor("white")}
 							className={cn(
-								"text-lg h-8 px-2 rounded cursor-pointer",
+								"text-lg h-8 w-8 px-2 rounded cursor-pointer",
 								color === "white"
 									? "bg-background text-foreground border-border shadow-sm"
 									: "text-muted-foreground hover:text-foreground border-transparent",
@@ -59,7 +59,7 @@ export function OpeningsSection() {
 						<button
 							onClick={() => setColor("black")}
 							className={cn(
-								"text-lg h-8 px-2 rounded cursor-pointer ",
+								"text-lg h-8 w-8 px-2 rounded cursor-pointer ",
 								color === "black"
 									? "bg-background text-foreground border-border shadow-sm"
 									: "text-muted-foreground hover:text-foreground border-transparent",

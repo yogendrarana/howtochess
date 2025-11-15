@@ -22,9 +22,6 @@ export const Header = () => {
 						</Link>
 
 						<div className="flex items-center gap-1">
-							<Button variant="outline" className="rounded">
-								Join
-							</Button>
 							<Link
 								to="/"
 								className={cn(

@@ -1,8 +1,9 @@
 import type { ChessOpening } from "@/types/chess";
-import { catalanOpeningLines } from "./lines/catalan-opening";
-import { caroKannDefenseLines } from "./lines/caro-kann-defense";
 import { evansGambitLines } from "./lines/evans-gambit";
 import { italianGameLines } from "./lines/italian-game";
+import { kingsGambitLines } from "./lines/kings-gambit";
+import { catalanOpeningLines } from "./lines/catalan-opening";
+import { caroKannDefenseLines } from "./lines/caro-kann-defense";
 
 /**
  * @todo
@@ -66,7 +67,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "white",
 		description:
 			"One of the most aggressive and romantic openings in chess. White sacrifices a kingside pawn to open lines for a rapid attack against Black's king. Known for leading to wild, tactical battles and spectacular attacks.",
-		lines: [],
+		lines: kingsGambitLines,
 	},
 	"reti-opening": {
 		id: "reti-opening",

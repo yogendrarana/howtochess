@@ -60,8 +60,8 @@ export function Piece({ id, symbol }: { id: string; symbol: string }) {
 		>
 			{SvgPiece ? (
 				<SvgPiece
-					width={isMobile ? 30 : 50}
-					height={isMobile ? 30 : 50}
+					width={isMobile ? 30 : 60}
+					height={isMobile ? 30 : 60}
 				/>
 			) : (
 				<div
