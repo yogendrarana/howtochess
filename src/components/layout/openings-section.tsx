@@ -36,7 +36,7 @@ export function OpeningsSection() {
 	}, [color]);
 
 	return (
-		<section className="border-b flex-1">
+		<section id="opening-section" className="border-b flex-1">
 			<MaxWidthContainer className="h-full border-0 md:border-l md:border-r">
 				<div className="mb-2 flex items-center justify-between">
 					<h2 className="text-xl font-bold">Chess openings</h2>

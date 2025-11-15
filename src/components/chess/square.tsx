@@ -60,22 +60,22 @@ export function Square({
 				<div className="absolute inset-0 pointer-events-none">
 					<div
 						className={cn(
-							"absolute top-1 left-1 md:top-5 md:left-5 h-2 w-2 md:w-3 md:h-3 border-t-3 border-l-3 rounded-tl-lg border-primary",
+							"absolute top-1 left-1 md:top-5 md:left-5 h-2 w-2 md:w-3 md:h-3 border-t-3 border-l-3 rounded-tl-lg border-primary/30",
 						)}
 					/>
 					<div
 						className={cn(
-							"absolute top-1 right-1 md:top-5 md:right-5 h-2 w-2 md:w-3 md:h-3 border-t-3 border-r-3 rounded-tr-lg border-primary",
+							"absolute top-1 right-1 md:top-5 md:right-5 h-2 w-2 md:w-3 md:h-3 border-t-3 border-r-3 rounded-tr-lg border-primary/30",
 						)}
 					/>
 					<div
 						className={cn(
-							"absolute bottom-1 left-1  md:bottom-5 md:left-5 h-2 w-2 md:w-3 md:h-3 border-b-3 border-l-3 rounded-bl-lg border-primary",
+							"absolute bottom-1 left-1  md:bottom-5 md:left-5 h-2 w-2 md:w-3 md:h-3 border-b-3 border-l-3 rounded-bl-lg border-primary/30",
 						)}
 					/>
 					<div
 						className={cn(
-							"absolute bottom-1 md:bottom-5 right-1 md:right-5 h-2 w-2 md:w-3 md:h-3 border-b-3 border-r-3 rounded-br-lg border-primary",
+							"absolute bottom-1 md:bottom-5 right-1 md:right-5 h-2 w-2 md:w-3 md:h-3 border-b-3 border-r-3 rounded-br-lg border-primary/30",
 						)}
 					/>
 				</div>

@@ -36,9 +36,18 @@ export const Hero = () => {
 							Playground
 							<ArrowRight className="h-4 w-4" />
 						</Link>
-						<Button size="lg" variant="outline" className="rounded">
+						<a
+							href="#opening-section"
+							className={cn(
+								buttonVariants({
+									size: "lg",
+									variant: "outline",
+									className: "gap-2 rounded",
+								}),
+							)}
+						>
 							Explore Openings
-						</Button>
+						</a>
 					</div>
 				</div>
 			</MaxWidthContainer>
