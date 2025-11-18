@@ -1,15 +1,15 @@
 import { Chess } from "chess.js";
-import type { ChessMove } from "@/types/chess";
+import type { ChessMove, MoveCommentary } from "@/types/chess";
 
 /**
  * Generate a list of moves with FEN snapshots.
  * @param sanMoves - Array of SAN moves like ["e4", "c6", "d4"]
- * @param comments - Optional array of comments for each move.
+ * @param commentary - Optional array of commentary for each move.
  */
 
 export function generateMovesWithFEN(
-	sanMoves: string[],
-	comments?: (string | undefined)[],
+	sanMoves: Array<string>,
+	commentary: Array<MoveCommentary>,
 ): ChessMove[] {
 	const chess = new Chess();
 	const result: ChessMove[] = [];
@@ -17,7 +17,10 @@ export function generateMovesWithFEN(
 	result.push({
 		fen: chess.fen(),
 		san: "",
-		comment: "Start",
+		commentary: {
+			description: "Starting Position",
+		},
+		captured: false,
 	});
 
 	sanMoves.forEach((san, index) => {
@@ -29,7 +32,7 @@ export function generateMovesWithFEN(
 		result.push({
 			san,
 			fen: chess.fen(),
-			comment: comments?.[index],
+			commentary: commentary[index],
 			captured: move.isCapture(),
 		});
 	});

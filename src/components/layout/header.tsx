@@ -1,10 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { Home, Moon, Sun } from "lucide-react";
+
+import { Logo } from "../logo";
+import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/providers/theme-provider";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import MaxWidthContainer from "../max-width-container";
-import { Logo } from "../logo";
+import MaxWidthContainer from "@/components/max-width-container";
 
 export const Header = () => {
 	const { theme, setTheme } = useTheme();

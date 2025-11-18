@@ -81,7 +81,10 @@ export function GuideInfo({ className }: { className: string }) {
 													: "(Start Position)"}
 												:
 												<span className="ml-2 font-normal">
-													{move.comment}
+													{
+														move.commentary
+															.description
+													}
 												</span>
 											</p>
 										</motion.div>

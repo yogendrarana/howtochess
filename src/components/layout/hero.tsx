@@ -1,10 +1,9 @@
-/** biome-ignore-all assist/source/organizeImports: <ignore> */
 import { ArrowRight } from "lucide-react";
-
-import { Button, buttonVariants } from "@/components/ui/button";
-import MaxWidthContainer from "@/components/max-width-container";
 import { Link } from "@tanstack/react-router";
+
 import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import MaxWidthContainer from "@/components/max-width-container";
 
 export const Hero = () => {
 	return (

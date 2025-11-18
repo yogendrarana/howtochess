@@ -1,8 +1,13 @@
+export interface MoveCommentary {
+	description: string;
+	plan?: string;
+}
+
 export interface ChessMove {
 	san: string;
 	fen: string;
-	comment?: string;
-	captured?: boolean;
+	commentary: MoveCommentary;
+	captured: boolean;
 }
 
 export interface OpeningLine {
