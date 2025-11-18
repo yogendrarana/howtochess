@@ -3,53 +3,200 @@ import { generateMovesWithFEN } from "@/utils/generate-moves-with-fen";
 
 export const caroKannDefenseLines: Array<OpeningLine> = [
 	{
-		id: "main",
-		name: "Main Line (Classical Variation)",
+		id: "classical",
+		name: "Classical Variation",
 		moves: generateMovesWithFEN(
 			["e4", "c6", "d4", "d5", "Nc3", "dxe4", "Nxe4", "Bf5"],
 			[
-				"White opens by controlling the center with the king’s pawn.",
-				"Black plays c6, preparing d5 while keeping the light-squared bishop flexible.",
-				"White builds a strong pawn duo in the center.",
-				"Black challenges the center immediately — the hallmark Caro-Kann strike.",
-				"The Classical Variation. White develops a piece while reinforcing e4 and d5.",
-				"Black exchanges in the center to free the position.",
-				"White recaptures with the knight, gaining central control and quick development.",
-				"Black develops the bishop outside the pawn chain before playing e6.",
+				{
+					description:
+						"Opens the center and activates the king's bishop, establishing classical control of the game.",
+				},
+				{
+					description:
+						"Caro-Kann Defense - prepares d5 advance while maintaining flexibility for the light-squared bishop.",
+				},
+				{
+					description:
+						"Builds a strong pawn center and opens lines for the queen and dark-squared bishop.",
+				},
+				{
+					description:
+						"Challenges White's center immediately, the characteristic Caro-Kann pawn break.",
+				},
+				{
+					description:
+						"Classical Variation - develops knight to support the center and prepare for quick castling.",
+				},
+				{
+					description:
+						"Captures the pawn and relieves central tension, opening the position for piece development.",
+				},
+				{
+					description:
+						"Recaptures with the knight, centralizing the piece and maintaining control over key squares.",
+				},
+				{
+					description:
+						"Develops the bishop outside the pawn chain, a key idea in the Classical Caro-Kann that avoids blocking the e-pawn.",
+				},
 			],
 		),
 	},
 
 	{
-		id: "advance",
-		name: "Advance Variation",
+		id: "caro-kann-advance",
+		name: "Caro Kann (Advance Variation)",
 		moves: generateMovesWithFEN(
-			["e4", "c6", "d4", "d5", "e5", "Bf5", "Nc3"],
 			[
-				"White starts with the King’s Pawn Opening.",
-				"Black signals the Caro-Kann Defense.",
-				"White occupies the center with pawns.",
-				"Black challenges the center immediately.",
-				"White advances the pawn, gaining space and closing the position.",
-				"Black develops the bishop to an active diagonal before e6.",
-				"White develops naturally, eyeing the d5 square and preparing Nf3.",
+				"e4",
+				"c6",
+				"d4",
+				"d5",
+				"e5",
+				"Bf5",
+				"Nc3",
+				"e6",
+				"Nf3",
+				"Nd7",
+				"Be2",
+				"Ne7",
+				"O-O",
+				"a6",
+			],
+			[
+				{
+					description:
+						"Opens the center and activates the king's bishop, establishing classical control of the game.",
+				},
+				{
+					description:
+						"Caro-Kann Defense - prepares d5 advance while maintaining flexibility for piece development.",
+				},
+				{
+					description:
+						"Builds a strong pawn center and opens lines for the queen and dark-squared bishop.",
+				},
+				{
+					description:
+						"Challenges White's center immediately, the characteristic Caro-Kann pawn break.",
+				},
+				{
+					description:
+						"Advance Variation - gains space and limits Black's development by blocking the e6 pawn break.",
+				},
+				{
+					description:
+						"Develops the bishop outside the pawn chain, a key idea in the Caro-Kann that maintains piece activity.",
+				},
+				{
+					description:
+						"Develops knight to support the center and prepare for further development, eyeing potential d4-d5 breaks.",
+				},
+				{
+					description:
+						"Solidifies the center and prepares to develop the dark-squared bishop, creating a flexible pawn structure.",
+				},
+				{
+					description:
+						"Develops knight to control central squares and prepare kingside castling, completing White's knight development.",
+				},
+				{
+					description:
+						"Develops knight to support the center and prepare for ...c5 break, typical Caro-Kann development.",
+				},
+				{
+					description:
+						"Develops bishop to support the center and prepare kingside castling, completing White's basic development.",
+				},
+				{
+					description:
+						"Knight repositions to support the ...c5 break and maintain flexibility, avoiding blocking the bishop.",
+				},
+				{
+					description:
+						"Safeguards the king and connects the rooks, completing White's development and preparing for middlegame.",
+				},
+				{
+					description:
+						"Prevents White's knight from jumping to b5 and prepares queenside expansion with ...b5.",
+				},
 			],
 		),
 	},
 
 	{
-		id: "exchange",
-		name: "Exchange Variation",
+		id: "caro-kann-exchange-variation",
+		name: "Caro Kann (Exchange Variation)",
 		moves: generateMovesWithFEN(
-			["e4", "c6", "d4", "d5", "exd5", "cxd5", "Bd3"],
 			[
-				"Standard opening move for White.",
-				"Black sets up the Caro-Kann structure.",
-				"White builds a pawn center.",
-				"Black contests the center.",
-				"White exchanges to open the position and simplify the center.",
-				"Black recaptures, maintaining a symmetrical pawn structure.",
-				"White develops the bishop to an active diagonal, eyeing h7 and supporting kingside play.",
+				"e4",
+				"c6",
+				"d4",
+				"d5",
+				"exd5",
+				"cxd5",
+				"Bd3",
+				"Nc6",
+				"c3",
+				"Nf6",
+				"Bf4",
+				"Bg4",
+				"Qb3",
+			],
+			[
+				{
+					description:
+						"Opens the center and activates the king's bishop, establishing classical control of the game.",
+				},
+				{
+					description:
+						"Caro-Kann Defense - prepares d5 advance while maintaining flexibility for piece development.",
+				},
+				{
+					description:
+						"Builds a strong pawn center and opens lines for the queen and dark-squared bishop.",
+				},
+				{
+					description:
+						"Challenges White's center immediately, the characteristic Caro-Kann pawn break.",
+				},
+				{
+					description:
+						"Exchange Variation - simplifies the center and creates symmetrical pawn structure.",
+				},
+				{
+					description:
+						"Recaptures and maintains central pawn, accepting symmetrical position with open c-file.",
+				},
+				{
+					description:
+						"Develops bishop to control the center and prepare kingside castling, placing it on an active diagonal.",
+				},
+				{
+					description:
+						"Develops knight to control key central squares and prepare for further development.",
+				},
+				{
+					description:
+						"Supports the d4 pawn and prepares to develop the b1 knight, reinforcing the center.",
+				},
+				{
+					description:
+						"Develops knight to control the center and complete kingside development, preparing for castling.",
+				},
+				{
+					description:
+						"Develops bishop outside the pawn chain, controlling the long diagonal and increasing pressure.",
+				},
+				{
+					description:
+						"Develops bishop to pin the f3 knight and challenge White's piece coordination.",
+				},
+				{
+					description:
+						"Develops queen to attack the b7 pawn and d5 pawn simultaneously, creating immediate threats.",
+				},
 			],
 		),
 	},

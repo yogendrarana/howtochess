@@ -3,8 +3,8 @@ import { generateMovesWithFEN } from "@/utils/generate-moves-with-fen";
 
 export const kingsIndianDefenseLines: Array<OpeningLine> = [
 	{
-		id: "classical",
-		name: "Classical Variation",
+		id: "kings-indian-classical",
+		name: "King's Indian Defense (Classical Variation)",
 		moves: generateMovesWithFEN(
 			[
 				"d4",
@@ -23,27 +23,69 @@ export const kingsIndianDefenseLines: Array<OpeningLine> = [
 				"Nc6",
 			],
 			[
-				"Queen's Pawn Opening.",
-				"King's Indian setup - flexible development.",
-				"White controls center with c4.",
-				"Black fianchettoes kingside bishop.",
-				"White develops knight, controls center.",
-				"King's Indian bishop - eyes long diagonal.",
-				"White establishes strong pawn center.",
-				"Black completes pawn structure.",
-				"White develops knight, prepares castling.",
-				"Black castles to safety.",
-				"White develops bishop, supports center.",
-				"Black challenges center with e5.",
-				"White castles kingside.",
-				"Black develops knight, increases pressure.",
+				{
+					description:
+						"Queen's Pawn Opening - White establishes central control with the d4 pawn.",
+				},
+				{
+					description:
+						"King's Indian Defense - Black develops knight to control the center and prepare for kingside fianchetto.",
+				},
+				{
+					description:
+						"White gains queenside space and supports the d4 pawn, creating the classic pawn center.",
+				},
+				{
+					description:
+						"Black initiates the King's Indian setup with kingside fianchetto, preparing to develop the bishop to g7.",
+				},
+				{
+					description:
+						"White develops knight to support the center and control key squares.",
+				},
+				{
+					description:
+						"Black completes the fianchetto development, placing bishop on the long diagonal to pressure the center.",
+				},
+				{
+					description:
+						"White establishes a strong pawn center with pawns on d4 and e4, gaining significant space.",
+				},
+				{
+					description:
+						"Black supports the e5 square and completes the pawn structure, preparing for central counterplay.",
+				},
+				{
+					description:
+						"White develops knight to control central squares and prepare kingside castling.",
+				},
+				{
+					description:
+						"Black secures the king and connects the rooks, completing basic kingside development.",
+				},
+				{
+					description:
+						"White develops bishop to support the center and prepare kingside castling.",
+				},
+				{
+					description:
+						"Black challenges White's center immediately with e5, the typical King's Indian counterattack.",
+				},
+				{
+					description:
+						"White castles kingside, safeguarding the king and connecting the rooks.",
+				},
+				{
+					description:
+						"Black develops knight to support the e5 pawn and increase pressure on the center, completing development in the Classical King's Indian system.",
+				},
 			],
 		),
 	},
 
 	{
-		id: "samisch",
-		name: "Sämisch Variation",
+		id: "kings-indian-samisch",
+		name: "King's Indian Defense (Sämisch Variation)",
 		moves: generateMovesWithFEN(
 			[
 				"d4",
@@ -61,26 +103,65 @@ export const kingsIndianDefenseLines: Array<OpeningLine> = [
 				"d5",
 			],
 			[
-				"Queen's Pawn Opening.",
-				"King's Indian setup.",
-				"White expands with c4.",
-				"Black fianchettoes bishop.",
-				"White develops knight.",
-				"Black develops King's Indian bishop.",
-				"White builds massive center.",
-				"Black completes pawn structure.",
-				"Sämisch - f3 strengthens center, prevents Ng4.",
-				"Black castles.",
-				"White develops bishop to active diagonal.",
-				"Black challenges center.",
-				"White advances, gains space.",
+				{
+					description:
+						"Queen's Pawn Opening - White establishes central control with the d4 pawn.",
+				},
+				{
+					description:
+						"King's Indian Defense - Black develops knight to control the center and prepare for kingside fianchetto.",
+				},
+				{
+					description:
+						"White gains queenside space and supports the d4 pawn, creating the classic pawn center.",
+				},
+				{
+					description:
+						"Black initiates the King's Indian setup with kingside fianchetto, preparing to develop the bishop to g7.",
+				},
+				{
+					description:
+						"White develops knight to support the center and control key squares.",
+				},
+				{
+					description:
+						"Black completes the fianchetto development, placing bishop on the long diagonal to pressure the center.",
+				},
+				{
+					description:
+						"White establishes a strong pawn center with pawns on d4 and e4, gaining significant space.",
+				},
+				{
+					description:
+						"Black supports the e5 square and completes the pawn structure, preparing for central counterplay.",
+				},
+				{
+					description:
+						"Sämisch Variation - White strengthens the center and prevents ...Ng4 attacks, preparing for Be3 and Qd2.",
+				},
+				{
+					description:
+						"Black secures the king and connects the rooks, completing basic kingside development.",
+				},
+				{
+					description:
+						"White develops bishop to support the center and prepare the queen-side castling plan.",
+				},
+				{
+					description:
+						"Black challenges White's center immediately with e5, the typical King's Indian counterattack.",
+				},
+				{
+					description:
+						"White advances the pawn to gain space and block the center, creating a closed position that favors White's attacking chances.",
+				},
 			],
 		),
 	},
 
 	{
-		id: "fianchetto",
-		name: "Fianchetto Variation",
+		id: "kings-indian-fianchetto",
+		name: "King's Indian Defense (Fianchetto Variation)",
 		moves: generateMovesWithFEN(
 			[
 				"d4",
@@ -97,25 +178,61 @@ export const kingsIndianDefenseLines: Array<OpeningLine> = [
 				"Nbd7",
 			],
 			[
-				"Queen's Pawn Opening.",
-				"King's Indian setup.",
-				"White controls center.",
-				"Black fianchettoes bishop.",
-				"White develops knight.",
-				"Black develops King's Indian bishop.",
-				"Fianchetto - prepares bishop development.",
-				"Black castles.",
-				"White completes fianchetto.",
-				"Black completes pawn structure.",
-				"White castles.",
-				"Black develops knight, prepares counterplay.",
+				{
+					description:
+						"Queen's Pawn Opening - White establishes central control with the d4 pawn.",
+				},
+				{
+					description:
+						"King's Indian Defense - Black develops knight to control the center and prepare for kingside fianchetto.",
+				},
+				{
+					description:
+						"White gains queenside space and supports the d4 pawn, creating the classic pawn center.",
+				},
+				{
+					description:
+						"Black initiates the King's Indian setup with kingside fianchetto, preparing to develop the bishop to g7.",
+				},
+				{
+					description:
+						"White develops knight to control central squares and prepare for kingside castling.",
+				},
+				{
+					description:
+						"Black completes the fianchetto development, placing bishop on the long diagonal to pressure the center.",
+				},
+				{
+					description:
+						"Fianchetto Variation - White prepares to develop the bishop to g2, avoiding the main theoretical lines.",
+				},
+				{
+					description:
+						"Black secures the king and connects the rooks, completing basic kingside development.",
+				},
+				{
+					description:
+						"White completes the kingside fianchetto, placing bishop on the long diagonal to counter Black's setup.",
+				},
+				{
+					description:
+						"Black supports the e5 square and completes the pawn structure, preparing for central counterplay.",
+				},
+				{
+					description:
+						"White castles kingside, safeguarding the king and connecting the rooks.",
+				},
+				{
+					description:
+						"Black develops knight to support the e5 break and prepare for queenside expansion, typical in the Fianchetto Variation.",
+				},
 			],
 		),
 	},
 
 	{
-		id: "four-pawns",
-		name: "Four Pawns Attack",
+		id: "kings-indian-four-pawns",
+		name: "King's Indian Defense - Four Pawns Attack",
 		moves: generateMovesWithFEN(
 			[
 				"d4",
@@ -132,55 +249,54 @@ export const kingsIndianDefenseLines: Array<OpeningLine> = [
 				"c5",
 			],
 			[
-				"Queen's Pawn Opening.",
-				"King's Indian setup.",
-				"White controls center.",
-				"Black fianchettoes.",
-				"White develops knight.",
-				"Black develops bishop.",
-				"White builds strong center.",
-				"Black completes structure.",
-				"Four Pawns - aggressive center expansion.",
-				"Black castles.",
-				"White develops knight.",
-				"Black counterattacks in center.",
-			],
-		),
-	},
-
-	{
-		id: "exchange",
-		name: "Exchange Variation",
-		moves: generateMovesWithFEN(
-			[
-				"d4",
-				"Nf6",
-				"c4",
-				"g6",
-				"Nc3",
-				"Bg7",
-				"e4",
-				"d6",
-				"d5",
-				"O-O",
-				"Be2",
-				"e5",
-				"dxe6",
-			],
-			[
-				"Queen's Pawn Opening.",
-				"King's Indian setup.",
-				"White controls center.",
-				"Black fianchettoes.",
-				"White develops knight.",
-				"Black develops bishop.",
-				"White builds center.",
-				"Black completes structure.",
-				"Exchange - closes center, gains space.",
-				"Black castles.",
-				"White develops bishop.",
-				"Black challenges center.",
-				"White captures, opens position.",
+				{
+					description:
+						"Queen's Pawn Opening - White establishes central control with the d4 pawn.",
+				},
+				{
+					description:
+						"King's Indian Defense - Black develops knight to control the center and prepare for kingside fianchetto.",
+				},
+				{
+					description:
+						"White gains queenside space and supports the d4 pawn, creating the classic pawn center.",
+				},
+				{
+					description:
+						"Black initiates the King's Indian setup with kingside fianchetto, preparing to develop the bishop to g7.",
+				},
+				{
+					description:
+						"White develops knight to support the center and control key squares.",
+				},
+				{
+					description:
+						"Black completes the fianchetto development, placing bishop on the long diagonal to pressure the center.",
+				},
+				{
+					description:
+						"White establishes a strong pawn center with pawns on d4 and e4, gaining significant space.",
+				},
+				{
+					description:
+						"Black supports the e5 square and completes the pawn structure, preparing for central counterplay.",
+				},
+				{
+					description:
+						"Four Pawns Attack - White aggressively expands with f4, creating a massive pawn center and attacking formation.",
+				},
+				{
+					description:
+						"Black secures the king and connects the rooks, completing basic kingside development.",
+				},
+				{
+					description:
+						"White develops knight to control central squares and support the advanced pawn structure.",
+				},
+				{
+					description:
+						"Black counterattacks immediately with c5, challenging White's center and creating tension on the queenside.",
+				},
 			],
 		),
 	},
