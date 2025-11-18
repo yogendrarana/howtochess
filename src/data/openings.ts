@@ -7,8 +7,13 @@ import { kingsGambitLines } from "./lines/kings-gambit";
 import { retiOpeningLines } from "./lines/reti-opening";
 import { londonSystemLines } from "./lines/london-system";
 import { queensGambitLines } from "./lines/queens-gambit";
+import { frenchDefenseLines } from "./lines/french-defense";
 import { catalanOpeningLines } from "./lines/catalan-opening";
+import { nimzoIndianLines } from "./lines/nimzo-indian-defense";
+import { sicilianDefenseLines } from "./lines/sicilian-defense";
+import { caroKannDefenseLines } from "./lines/caro-kann-defense";
 import { kingsIndianAttackLines } from "./lines/kings-indian-attack";
+import { kingsIndianDefenseLines } from "./lines/kings-indian-defense";
 
 /**
  * @todo
@@ -119,7 +124,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "black",
 		description:
 			"A solid and classical response to 1.e4, emphasizing pawn structure and flexibility. It aims for a strong center and long-term stability rather than immediate counterattack.",
-		lines: [],
+		lines: caroKannDefenseLines,
 	},
 	"french-defense": {
 		id: "french-defense",
@@ -128,7 +133,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "black",
 		description:
 			"A solid defense to 1.e4 focusing on pawn structure and counterplay. Black accepts space disadvantage for long-term structural advantages and center control.",
-		lines: [],
+		lines: frenchDefenseLines,
 	},
 	"kings-indian-defense": {
 		id: "kings-indian-defense",
@@ -137,7 +142,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "black",
 		description:
 			"A hypermodern defense against 1.d4. Black allows White a large center then counterattacks with piece play and pawn breaks. Known for dynamic, complex positions.",
-		lines: [],
+		lines: kingsIndianDefenseLines,
 	},
 	"nimzo-indian-defense": {
 		id: "nimzo-indian-defense",
@@ -146,7 +151,7 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "black",
 		description:
 			"A sophisticated defense to 1.d4. Black pins the knight on c3 to control the center indirectly. Leads to rich strategic battles with imbalances for both sides.",
-		lines: [],
+		lines: nimzoIndianLines,
 	},
 	"sicilian-defense": {
 		id: "sicilian-defense",
@@ -155,6 +160,6 @@ export const chessOpeningMap: Record<string, ChessOpening> = {
 		color: "black",
 		description:
 			"The most aggressive response to 1.e4. Black creates immediate asymmetry and fights for the center while aiming for counterplay on the queenside.",
-		lines: [],
+		lines: sicilianDefenseLines,
 	},
 };
