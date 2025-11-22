@@ -15,7 +15,6 @@
 	"chosenAddOns": [
 		"eslint",
 		"start",
-		"convex",
 		"drizzle",
 		"shadcn",
 		"t3env",
