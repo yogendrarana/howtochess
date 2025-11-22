@@ -4,20 +4,9 @@
 	"typescript": true,
 	"tailwind": true,
 	"packageManager": "npm",
-	"addOnOptions": {
-		"drizzle": {
-			"database": "postgresql"
-		}
-	},
+	"addOnOptions": {},
 	"git": true,
 	"version": 1,
 	"framework": "react-cra",
-	"chosenAddOns": [
-		"eslint",
-		"start",
-		"drizzle",
-		"shadcn",
-		"t3env",
-		"tanstack-query"
-	]
+	"chosenAddOns": ["eslint", "start", "shadcn", "t3env", "tanstack-query"]
 }

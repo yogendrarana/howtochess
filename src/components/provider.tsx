@@ -9,9 +9,9 @@ import { TooltipProvider } from "./ui/tooltip";
 export function Provider({ children }: { children: React.ReactNode }) {
 	return (
 		<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-				<TanstackQueryProvider queryClient={getContext().queryClient}>
-					<TooltipProvider>{children}</TooltipProvider>
-				</TanstackQueryProvider>
+			<TanstackQueryProvider queryClient={getContext().queryClient}>
+				<TooltipProvider>{children}</TooltipProvider>
+			</TanstackQueryProvider>
 		</ThemeProvider>
 	);
 }
